@@ -382,7 +382,7 @@
             },
             closeModal() {
                 document.getElementById('modalOverlay').classList.remove('show');
-                document.getElementById('modalBody').innerHTML = ''; // Temizle (Oyunlar/Zamanlayıcılar dursun diye)
+                document.getElementById('modalBody').innerHTML = ''; // Temizle
                 if(gamesModule.reactionTimeout) clearTimeout(gamesModule.reactionTimeout);
             }
         };
@@ -544,7 +544,7 @@
                 document.getElementById('team-details').style.display = 'none';
 
                 try {
-                    // 1. İsimden arama
+                    // İsimden arama
                     const searchData = await this.apiCall(`teams?search=${encodeURIComponent(query)}`);
                     if(searchData.results === 0) throw new Error('Takım bulunamadı.');
                     
@@ -560,7 +560,7 @@
                     this.checkFollowStatus();
                     document.getElementById('team-details').style.display = 'block';
 
-                    // 2. Transferler ve Maçlar (Paralel)
+                    // Transferler ve Maçlar
                     this.fetchTransfers(teamInfo.id);
                     this.fetchFixtures(teamInfo.id);
 
@@ -581,7 +581,6 @@
                         return;
                     }
                     
-                    // Veriyi Düzle ve Tarihe Göre Sırala (En Yeni -> En Eski)
                     let allTransfers = [];
                     data.response.forEach(player => {
                         player.transfers.forEach(t => {
@@ -624,7 +623,6 @@
                 const container = document.getElementById('teamFixtures');
                 container.innerHTML = 'Yükleniyor...';
                 try {
-                    // Son 5 ve Gelecek 5 maçı al
                     const data = await this.apiCall(`fixtures?team=${teamId}&last=5`);
                     if(data.results === 0) {
                         container.innerHTML = 'Maç bulunamadı.';
@@ -718,7 +716,7 @@
             },
             
             // -- TEPKİ TESTİ (REACTION) --
-            reactionState: 'idle', // idle, wait, ready
+            reactionState: 'idle', 
             reactionStartTime: 0,
             reactionTimeout: null,
             showReactionMenu() {
@@ -861,7 +859,7 @@
                     setTimeout(() => {
                         this.clickActive = false;
                         area.innerHTML = `Süre Bitti!<br>Toplam: ${this.clickScore}`;
-                        this.clickScore = 0; // Reset for next game via menu
+                        this.clickScore = 0;
                     }, 10000);
                 } else if(this.clickActive) {
                     this.clickScore++;
@@ -957,7 +955,7 @@
                         this.swTime += 100;
                         const el = document.getElementById('swDisplay');
                         if(el) el.innerText = (this.swTime / 1000).toFixed(1) + 's';
-                        else { clearInterval(this.swInterval); this.swActive = false; } // Kapandıysa durdur
+                        else { clearInterval(this.swInterval); this.swActive = false; }
                     }, 100);
                 }
             },
