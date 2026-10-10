@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>My AI HUB — Pro Edition</title>
+    <title>My AI HUB — Ultimate OS Edition</title>
     <style>
         /* ================= KÖK DEĞİŞKENLER VE TEMA ================= */
         :root {
             --bg-color: #f0f2f5;
             --desktop-bg: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-            --sidebar-bg: rgba(255, 255, 255, 0.85);
+            --sidebar-bg: rgba(255, 255, 255, 0.9);
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-muted: #6b7280;
@@ -22,257 +22,193 @@
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --taskbar-bg: rgba(255, 255, 255, 0.9);
+            --taskbar-bg: rgba(255, 255, 255, 0.95);
             --window-header: #f9fafb;
-            --transition-speed: 0.25s;
+            --transition-speed: 0.2s;
         }
 
         [data-theme="dark"] {
             --bg-color: #0f172a;
             --desktop-bg: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%);
-            --sidebar-bg: rgba(30, 41, 59, 0.85);
+            --sidebar-bg: rgba(30, 41, 59, 0.9);
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --taskbar-bg: rgba(15, 23, 42, 0.9);
+            --taskbar-bg: rgba(15, 23, 42, 0.95);
             --window-header: #0f172a;
         }
 
-        /* HAREKETİ AZALT / ANİMASYON KONTROLÜ */
         [data-animations="reduced"] * {
             animation-duration: 0.001ms !important;
             transition-duration: 0.001ms !important;
         }
 
-        /* ================= GENEL SIFIRLAMA VE YAPI ================= */
+        /* ================= GENEL SIFIRLAMA ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; }
         body { background: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; transition: background-color var(--transition-speed); }
-        button, input, select { outline: none; border: none; font-size: 1rem; }
-        button { cursor: pointer; border-radius: 12px; transition: transform var(--transition-speed), opacity var(--transition-speed); min-height: 48px; }
+        button, input, select, textarea { outline: none; border: none; font-size: 1rem; color: var(--text-main); }
+        button { cursor: pointer; border-radius: 12px; transition: transform 0.1s, opacity 0.2s; min-height: 44px; }
         button:active { transform: scale(0.97); }
-        
-        /* ================= MASAÜSTÜ & PENCERE SİSTEMİ ================= */
+
+        /* ================= MASAÜSTÜ ORTAMI ================= */
         .desktop-env { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; background: var(--desktop-bg); background-size: cover; background-position: center; overflow: hidden; }
-        .desktop-grid { flex: 1; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); grid-auto-rows: 90px; gap: 15px; align-content: start; z-index: 10; overflow-y: auto; }
-        .desktop-icon { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 10px; cursor: pointer; transition: transform var(--transition-speed), background var(--transition-speed); border: 1px solid rgba(255,255,255,0.2); color: white; text-align: center; font-size: 0.85rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        .desktop-icon:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.25); }
-        .desktop-icon span { font-size: 2rem; margin-bottom: 4px; }
+        .desktop-grid { flex: 1; padding: 25px; display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); grid-auto-rows: 95px; gap: 15px; align-content: start; z-index: 10; overflow-y: auto; }
+        .desktop-icon { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 16px; padding: 10px; cursor: pointer; transition: transform var(--transition-speed), background var(--transition-speed); border: 1px solid rgba(255,255,255,0.2); color: white; text-align: center; font-size: 0.8rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .desktop-icon:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.25); }
+        .desktop-icon span { font-size: 2.2rem; margin-bottom: 4px; }
 
-        /* GÖREV ÇUBUĞU (TASKBAR) */
-        .taskbar { height: 60px; background: var(--taskbar-bg); backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; z-index: 1000; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); }
+        /* ================= GÖREV ÇUBUĞU (TASKBAR) ================= */
+        .taskbar { height: 60px; background: var(--taskbar-bg); backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; z-index: 9999; box-shadow: 0 -4px 15px rgba(0,0,0,0.15); position: absolute; bottom: 0; left: 0; width: 100%; }
+        .taskbar.top { top: 0; bottom: auto; border-top: none; border-bottom: 1px solid var(--border-color); }
         .start-btn { display: flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 8px 16px; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .taskbar-apps { display: flex; gap: 10px; flex: 1; margin: 0 15px; overflow-x: auto; }
-        .taskbar-item { background: var(--card-bg); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 10px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--text-main); white-space: nowrap; }
-        .taskbar-clock { font-weight: 600; font-size: 0.9rem; text-align: right; color: var(--text-main); }
+        .taskbar-apps { display: flex; gap: 8px; flex: 1; margin: 0 15px; overflow-x: auto; align-items: center; }
+        .taskbar-item { background: var(--card-bg); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 10px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--text-main); white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .taskbar-item.active { border-color: var(--primary); font-weight: bold; }
+        .taskbar-right { display: flex; align-items: center; gap: 15px; font-size: 0.85rem; }
 
-        /* BAŞLAT MENÜSÜ (START MENU) */
-        .start-menu { position: absolute; bottom: 70px; left: 15px; width: 320px; max-height: 480px; background: var(--sidebar-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow); z-index: 1001; display: none; flex-direction: column; padding: 20px; overflow-y: auto; animation: slideUp var(--transition-speed) ease; }
+        /* ================= BAŞLAT MENÜSÜ ================= */
+        .start-menu { position: absolute; bottom: 70px; left: 15px; width: 360px; max-height: 520px; background: var(--sidebar-bg); backdrop-filter: blur(25px); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow); z-index: 10000; display: none; flex-direction: column; padding: 20px; overflow-y: auto; }
         .start-menu.open { display: flex; }
-        .start-menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px; }
-        .start-menu-item { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card-bg); padding: 12px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border-color); transition: background var(--transition-speed); font-size: 0.8rem; text-align: center; }
+        .start-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 15px; }
+        .start-menu-item { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card-bg); padding: 12px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border-color); font-size: 0.75rem; text-align: center; }
         .start-menu-item:hover { background: var(--primary); color: white; }
-        .start-menu-item span { font-size: 1.5rem; margin-bottom: 5px; }
+        .start-menu-item span { font-size: 1.6rem; margin-bottom: 4px; }
 
-        /* UYGULAMA PENCERELERİ (WINDOWS) */
-        .window { position: absolute; top: 5%; left: 5%; width: 90%; height: 85%; background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow); border: 1px solid var(--border-color); display: none; flex-direction: column; z-index: 500; overflow: hidden; animation: zoomIn var(--transition-speed) ease; }
+        /* ================= PENCERE YÖNETİMİ (WINDOWS) ================= */
+        .window { position: absolute; top: 10%; left: 10%; width: 75vw; height: 75vh; min-width: 320px; min-height: 240px; background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow); border: 1px solid var(--border-color); display: none; flex-direction: column; z-index: 1000; overflow: hidden; resize: both; }
         .window.active { display: flex; }
-        .window-header { height: 50px; background: var(--window-header); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-weight: bold; }
-        .window-controls { display: flex; gap: 8px; }
-        .window-btn { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--border-color); cursor: pointer; font-size: 0.9rem; color: var(--text-main); }
+        .window.maximized { top: 0 !important; left: 0 !important; width: 100vw !important; height: calc(100vh - 60px) !important; border-radius: 0 !important; resize: none !important; }
+        .window-header { height: 48px; background: var(--window-header); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font-weight: bold; cursor: move; }
+        .window-controls { display: flex; gap: 6px; }
+        .window-btn { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--border-color); cursor: pointer; font-size: 0.85rem; color: var(--text-main); }
         .window-btn.close:hover { background: var(--danger); color: white; }
-        .window-body { flex: 1; overflow-y: auto; padding: 25px; position: relative; }
+        .window-body { flex: 1; overflow-y: auto; padding: 20px; position: relative; background: var(--card-bg); }
 
         /* WIDGETS */
-        .desktop-widgets { position: absolute; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 5; pointer-events: none; max-width: 320px; width: 100%; }
+        .desktop-widgets { position: absolute; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 5; pointer-events: none; width: 300px; }
         .widget-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-radius: var(--radius-md); padding: 15px; border: 1px solid rgba(255,255,255,0.3); pointer-events: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: var(--text-main); }
         [data-theme="dark"] .widget-card { background: rgba(30, 41, 59, 0.7); border-color: rgba(255,255,255,0.05); }
 
-        /* ================= ORTAK BİLEŞENLER ================= */
-        .header-section { margin-bottom: 24px; }
-        .header-section h1 { font-size: 2rem; margin-bottom: 8px; }
-        .header-section p { color: var(--text-muted); }
-        
-        .card { background: var(--card-bg); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border-color); }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        
-        .btn-primary { background: var(--primary); color: white; padding: 12px 24px; font-weight: bold; }
-        .btn-secondary { background: var(--border-color); color: var(--text-main); padding: 12px 24px; font-weight: bold; }
-        .btn-danger { background: var(--danger); color: white; padding: 12px 24px; }
-        
-        input[type="text"], input[type="password"], input[type="number"], select, textarea { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-main); margin-bottom: 12px; min-height: 48px; }
-        textarea { resize: vertical; min-height: 100px; }
+        /* ORTAK BİLEŞENLER */
+        .card { background: var(--card-bg); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border-color); margin-bottom: 15px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .btn-primary { background: var(--primary); color: white; padding: 12px 20px; font-weight: bold; width: 100%; border-radius: 12px; }
+        .btn-secondary { background: var(--border-color); color: var(--text-main); padding: 10px 16px; font-weight: bold; border-radius: 12px; }
+        .btn-danger { background: var(--danger); color: white; padding: 10px 16px; font-weight: bold; border-radius: 12px; }
+        input[type="text"], input[type="password"], input[type="number"], select, textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-main); margin-bottom: 12px; }
 
-        /* ================= BÖLÜME ÖZEL ================= */
-        /* AI CHAT */
-        .chat-container { display: flex; flex-direction: column; height: 65vh; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--card-bg); }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .message { max-width: 80%; padding: 12px 16px; border-radius: 16px; line-height: 1.5; }
-        .msg-user { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 4px; }
-        .msg-ai { align-self: flex-start; background: var(--border-color); color: var(--text-main); border-bottom-left-radius: 4px; }
-        .chat-input-area { display: flex; padding: 15px; gap: 10px; border-top: 1px solid var(--border-color); }
-        .chat-input-area input { margin: 0; flex: 1; }
-
-        /* OYUNLAR & ARAÇLAR KARTLARI */
-        .item-card { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 15px; transition: transform 0.2s; }
-        .item-card:hover { transform: translateY(-4px); border-color: var(--primary); }
-        .item-emoji { font-size: 2.8rem; margin-bottom: 12px; }
-        .item-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 4px; }
-        .badge { font-size: 0.75rem; background: var(--border-color); padding: 4px 8px; border-radius: 20px; margin-bottom: 8px; color: var(--text-muted); }
-
-        /* MODAL SİSTEMİ */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed); padding: 20px; }
+        /* MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 30000; opacity: 0; pointer-events: none; transition: opacity 0.2s; padding: 20px; }
         .modal-overlay.show { opacity: 1; pointer-events: auto; }
-        .modal-content { background: var(--card-bg); width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; border-radius: var(--radius-lg); padding: 30px; position: relative; box-shadow: var(--shadow); animation: zoomIn var(--transition-speed) ease; }
-        .modal-close { position: absolute; top: 20px; right: 20px; background: transparent; font-size: 1.5rem; color: var(--text-muted); width: 44px; height: 44px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
-
-        /* MÜZİK MERKEZİ */
-        .music-player-bar { display: flex; align-items: center; gap: 15px; background: var(--card-bg); padding: 15px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 20px; }
-        .sound-wave { display: flex; align-items: flex-end; gap: 3px; height: 24px; }
-        .sound-bar { width: 4px; background: var(--primary); border-radius: 2px; animation: bounce 1s infinite ease-in-out; }
-        .sound-bar:nth-child(2) { animation-delay: 0.2s; }
-        .sound-bar:nth-child(3) { animation-delay: 0.4s; }
-        .sound-bar:nth-child(4) { animation-delay: 0.1s; }
+        .modal-content { background: var(--card-bg); width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; border-radius: var(--radius-lg); padding: 25px; position: relative; box-shadow: var(--shadow); }
 
         /* TOAST */
-        #toast-container { position: fixed; bottom: 80px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 3000; }
-        .toast { background: var(--text-main); color: var(--bg-color); padding: 12px 24px; border-radius: 12px; box-shadow: var(--shadow); animation: slideIn 0.3s forwards; display: flex; align-items: center; gap: 8px; }
+        #toast-container { position: fixed; bottom: 75px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 40000; }
+        .toast { background: var(--text-main); color: var(--bg-color); padding: 10px 20px; border-radius: 10px; box-shadow: var(--shadow); font-size: 0.9rem; }
 
-        /* ANİMASYON KEYFRAMES */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes bounce { 0%, 100% { height: 6px; } 50% { height: 24px; } }
-
-        /* MOBİL UYUM */
-        .mobile-toggle { display: none; }
-        @media (max-width: 768px) {
+        @media(max-width: 768px) {
             .desktop-widgets { display: none; }
-            .desktop-grid { grid-template-columns: repeat(3, 1fr); }
-            .window { top: 0; left: 0; width: 100%; height: calc(100vh - 60px); border-radius: 0; }
+            .window { top: 0 !important; left: 0 !important; width: 100vw !important; height: calc(100vh - 60px) !important; border-radius: 0 !important; resize: none !important; }
         }
     </style>
 </head>
 <body data-theme="light" data-animations="normal">
 
-    <!-- MASAÜSTÜ ÇEVRE BİRİMİ -->
-    <div class="desktop-env" id="desktopBg" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop');">
+    <!-- MASAÜSTÜ ARKA PLANI -->
+    <div class="desktop-env" id="desktopEnv" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop');">
         
-        <!-- MASAÜSTÜ WIDGET'LARI -->
+        <!-- WIDGETLAR -->
         <div class="desktop-widgets">
             <div class="widget-card">
                 <div id="widgetClock" style="font-size: 2rem; font-weight: bold; color: var(--primary);">00:00</div>
                 <div id="widgetDate" style="font-size: 0.9rem; color: var(--text-muted);">Tarih Yükleniyor...</div>
             </div>
             <div class="widget-card">
-                <h4 style="margin-bottom: 8px;">⭐ Takip Edilenler</h4>
+                <h4 style="margin-bottom: 8px;">⭐ Takip Edilen Takımlar</h4>
                 <div id="widgetFavs" style="font-size: 0.9rem; color: var(--text-muted);">Takip edilen takım yok.</div>
             </div>
-            <div class="widget-card" onclick="openWindow('games')" style="cursor: pointer;">
-                <h4 style="margin-bottom: 5px;">🎯 Günün Önerisi</h4>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Hafıza veya Tepki testi oyna!</p>
-            </div>
         </div>
 
-        <!-- MASAÜSTÜ SİMGELERİ -->
-        <div class="desktop-grid" id="desktopIcons">
-            <div class="desktop-icon" onclick="openWindow('ai')"><span>🤖</span>Yapay Zekâ</div>
-            <div class="desktop-icon" onclick="openWindow('sports')"><span>⚽</span>Spor Merkezi</div>
-            <div class="desktop-icon" onclick="openWindow('games')"><span>🎮</span>Oyun Merkezi</div>
-            <div class="desktop-icon" onclick="openWindow('tools')"><span>🛠️</span>Araçlar</div>
-            <div class="desktop-icon" onclick="openWindow('notes')"><span>📝</span>Notlar</div>
-            <div class="desktop-icon" onclick="openWindow('news')"><span>📰</span>Haberler</div>
-            <div class="desktop-icon" onclick="openWindow('music')"><span>🎵</span>Müzik Merkezi</div>
-            <div class="desktop-icon" onclick="openWindow('youtube')"><span>📺</span>YouTube</div>
-            <div class="desktop-icon" onclick="openWindow('settings')"><span>⚙️</span>Ayarlar</div>
-        </div>
+        <!-- MASAÜSTÜ İKONLARI (Dinamik Yüklenir) -->
+        <div class="desktop-grid" id="desktopIconsGrid"></div>
 
         <!-- GÖREV ÇUBUĞU -->
-        <div class="taskbar">
-            <div class="start-btn" onclick="toggleStartMenu()">
-                <span>🪟</span> Başlat
+        <div class="taskbar" id="mainTaskbar">
+            <div class="start-btn" onclick="toggleStartMenu()"><span>🪟</span> Başlat</div>
+            <div class="taskbar-apps" id="taskbarAppsList"></div>
+            <div class="taskbar-right">
+                <span id="taskbarClock">00:00</span>
             </div>
-            <div class="taskbar-apps" id="taskbarApps"></div>
-            <div class="taskbar-clock" id="taskbarClock">00:00</div>
         </div>
 
         <!-- BAŞLAT MENÜSÜ -->
         <div class="start-menu" id="startMenu">
             <h3>My AI HUB Pro</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Kişisel Teknoloji & Eğlence Merkezi</p>
-            <div class="start-menu-grid">
-                <div class="start-menu-item" onclick="openWindow('ai'); toggleStartMenu()"><span>🤖</span>AI Asistan</div>
-                <div class="start-menu-item" onclick="openWindow('sports'); toggleStartMenu()"><span>⚽</span>Spor</div>
-                <div class="start-menu-item" onclick="openWindow('games'); toggleStartMenu()"><span>🎮</span>Oyunlar</div>
-                <div class="start-menu-item" onclick="openWindow('tools'); toggleStartMenu()"><span>🛠️</span>Araçlar</div>
-                <div class="start-menu-item" onclick="openWindow('notes'); toggleStartMenu()"><span>📝</span>Notlar</div>
-                <div class="start-menu-item" onclick="openWindow('news'); toggleStartMenu()"><span>📰</span>Haberler</div>
-                <div class="start-menu-item" onclick="openWindow('music'); toggleStartMenu()"><span>🎵</span>Müzik</div>
-                <div class="start-menu-item" onclick="openWindow('youtube'); toggleStartMenu()"><span>📺</span>YouTube</div>
-                <div class="start-menu-item" onclick="openWindow('settings'); toggleStartMenu()"><span>⚙️</span>Ayarlar</div>
-            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">Ultimate OS Çevre Birimi</p>
+            <input type="text" id="startMenuSearch" placeholder="Uygulama ara..." oninput="filterStartMenu(this.value)">
+            <div class="start-menu-grid" id="startMenuGrid"></div>
         </div>
-
     </div>
 
-    <!-- ================= PENCERE YAPILARI (WINDOWS) ================= -->
+    <!-- ================= PENCERE YAPILARI (20+ UYGULAMA) ================= -->
 
-    <!-- 1. AI PENCERESİ -->
-    <div class="window" id="win-ai">
-        <div class="window-header">
+    <!-- 1. Yapay Zekâ -->
+    <div class="window" id="win-ai" onmousedown="bringToFront('ai')">
+        <div class="window-header" onmousedown="initDrag(event, 'ai')">
             <span>🤖 Yapay Zekâ Merkezi (Çoklu Sağlayıcı)</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('ai')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('ai')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('ai')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
-                <label style="font-weight: bold; white-space: nowrap;">Aktif AI:</label>
+            <div style="display:flex; gap:10px; margin-bottom:15px; align-items:center;">
+                <label style="font-weight:bold;">Aktif Model:</label>
                 <select id="activeAiSelect" onchange="aiModule.switchConfig(this.value)">
-                    <option value="1">Yapay Zekâ 1 (Groq Llama 3)</option>
-                    <option value="2">Yapay Zekâ 2 (Yedek)</option>
-                    <option value="3">Yapay Zekâ 3</option>
-                    <option value="4">Yapay Zekâ 4</option>
+                    <option value="1">AI Sağlayıcı 1 (Groq)</option>
+                    <option value="2">AI Sağlayıcı 2 (Yedek)</option>
+                    <option value="3">AI Sağlayıcı 3</option>
+                    <option value="4">AI Sağlayıcı 4</option>
                 </select>
             </div>
-            <div class="chat-container">
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message msg-ai">Merhaba! Seçili AI modeliyle sohbete başlayabilirsin.</div>
+            <div style="display:flex; flex-direction:column; height: 60vh; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-color);">
+                <div id="chatMessages" style="flex:1; overflow-y:auto; padding:15px; display:flex; flex-direction:column; gap:12px;">
+                    <div style="background:var(--border-color); padding:10px 14px; border-radius:12px; max-width:80%;">Merhaba! Seçili AI modeliyle sohbete başlayabilirsin.</div>
                 </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." onkeypress="if(event.key==='Enter') aiModule.sendMessage()">
-                    <button class="btn-primary" onclick="aiModule.sendMessage()">Gönder</button>
-                    <button class="btn-secondary" onclick="aiModule.clearChat()">🗑️</button>
+                <div style="display:flex; padding:12px; gap:10px; border-top:1px solid var(--border-color);">
+                    <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." style="margin:0; flex:1;" onkeypress="if(event.key==='Enter') aiModule.sendMessage()">
+                    <button class="btn-primary" style="width:auto;" onclick="aiModule.sendMessage()">Gönder</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. SPOR MERKEZİ PENCERESİ -->
-    <div class="window" id="win-sports">
-        <div class="window-header">
+    <!-- 2. Spor Merkezi -->
+    <div class="window" id="win-sports" onmousedown="bringToFront('sports')">
+        <div class="window-header" onmousedown="initDrag(event, 'sports')">
             <span>⚽ Spor Merkezi & Transferler</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('sports')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('sports')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('sports')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div class="card" style="margin-bottom: 20px;">
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="teamSearchInput" placeholder="Takım adı ara (Örn: Galatasaray, Real Madrid)" onkeypress="if(event.key==='Enter') sportsModule.searchTeam()" style="margin:0; flex:1;">
-                    <button class="btn-primary" onclick="sportsModule.searchTeam()">Ara</button>
+            <div class="card">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="teamSearchInput" placeholder="Takım adı ara (Örn: Galatasaray, Real Madrid)" style="margin:0; flex:1;" onkeypress="if(event.key==='Enter') sportsModule.searchTeam()">
+                    <button class="btn-primary" style="width:auto;" onclick="sportsModule.searchTeam()">Ara</button>
                 </div>
-                <div id="sports-loading" style="display:none; text-align:center; padding:20px;">⏳ Takım verileri yükleniyor...</div>
+                <div id="sports-loading" style="display:none; text-align:center; padding:15px;">⏳ Veriler aranıyor...</div>
                 <div id="sports-error" style="color:var(--danger); display:none; padding:10px 0;"></div>
             </div>
             <div id="team-details" class="card" style="display:none;">
-                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
-                    <img id="teamLogo" style="width: 80px; height: 80px; object-fit: contain;" src="" alt="Logo">
+                <div style="display:flex; align-items:center; gap:20px; margin-bottom:15px;">
+                    <img id="teamLogo" style="width:70px; height:70px; object-fit:contain;" src="" alt="Logo">
                     <div>
                         <h2 id="teamName">Takım Adı</h2>
                         <p id="teamInfo" style="color:var(--text-muted);">Ülke - Stadyum</p>
@@ -281,31 +217,32 @@
                 </div>
                 <div class="grid-2">
                     <div>
-                        <h3 style="margin-bottom:15px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">Son Maçlar</h3>
-                        <div id="teamFixtures" style="color:var(--text-muted);">Veri yükleniyor...</div>
+                        <h3>Son Maçlar</h3>
+                        <div id="teamFixtures" style="margin-top:10px; color:var(--text-muted);">Yükleniyor...</div>
                     </div>
                     <div>
-                        <h3 style="margin-bottom:15px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">Transferler (En Yeni ➔ En Eski)</h3>
-                        <div id="teamTransfers" style="color:var(--text-muted);">Veri yükleniyor...</div>
+                        <h3>Transferler (En Yeni ➔ En Eski)</h3>
+                        <div id="teamTransfers" style="margin-top:10px; color:var(--text-muted);">Yükleniyor...</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 3. OYUNLAR PENCERESİ (20+ OYUN) -->
-    <div class="window" id="win-games">
-        <div class="window-header">
+    <!-- 3. Oyun Merkezi -->
+    <div class="window" id="win-games" onmousedown="bringToFront('games')">
+        <div class="window-header" onmousedown="initDrag(event, 'games')">
             <span>🎮 Oyun Merkezi (25+ Mini Oyun)</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('games')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('games')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('games')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                <input type="text" id="gameSearchInput" placeholder="Oyun ara..." oninput="gamesModule.filterGames()" style="margin:0; flex:1; min-width:200px;">
-                <select id="gameCategoryFilter" onchange="gamesModule.filterGames()" style="margin:0; width:200px;">
+            <div style="display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;">
+                <input type="text" id="gameSearchInput" placeholder="Oyun ara..." style="margin:0; flex:1; min-width:180px;" oninput="gamesModule.filterGames()">
+                <select id="gameCatFilter" style="margin:0; width:180px;" onchange="gamesModule.filterGames()">
                     <option value="all">Tüm Kategoriler</option>
                     <option value="Hafıza">Hafıza</option>
                     <option value="Refleks">Refleks</option>
@@ -313,242 +250,377 @@
                     <option value="Bulmaca">Bulmaca</option>
                     <option value="Arcade">Arcade</option>
                     <option value="Kelime">Kelime</option>
-                    <option value="Sayılar">Sayılar</option>
                 </select>
-                <button class="btn-secondary" onclick="gamesModule.playRandom()">🎲 Rastgele Oyun</button>
+                <button class="btn-secondary" onclick="gamesModule.playRandom()">🎲 Rastgele</button>
             </div>
-            <div class="grid-3" id="gamesGrid"></div>
+            <div class="grid-3" id="gamesGridContainer"></div>
         </div>
     </div>
 
-    <!-- 4. ARAÇLAR PENCERESİ -->
-    <div class="window" id="win-tools">
-        <div class="window-header">
-            <span>🛠️ Günlük Araçlar</span>
+    <!-- 4. Araçlar -->
+    <div class="window" id="win-tools" onmousedown="bringToFront('tools')">
+        <div class="window-header" onmousedown="initDrag(event, 'tools')">
+            <span>🛠️ Araçlar</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('tools')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('tools')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('tools')">✕</div>
             </div>
         </div>
-        <div class="window-body">
-            <div class="grid-3" id="toolsGrid"></div>
-        </div>
+        <div class="window-body"><div class="grid-3" id="toolsGridContainer"></div></div>
     </div>
 
-    <!-- 5. NOTLAR PENCERESİ -->
-    <div class="window" id="win-notes">
-        <div class="window-header">
+    <!-- 5. Notlar -->
+    <div class="window" id="win-notes" onmousedown="bringToFront('notes')">
+        <div class="window-header" onmousedown="initDrag(event, 'notes')">
             <span>📝 Notlar</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('notes')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('notes')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('notes')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div class="card" style="margin-bottom: 20px;">
-                <input type="text" id="noteTitle" placeholder="Not Başlığı">
-                <textarea id="noteContent" placeholder="Not içeriği..."></textarea>
-                <button class="btn-primary" onclick="notesModule.addNote()" style="width:100%;">Not Ekle</button>
+            <div class="card">
+                <input type="text" id="noteTitleInput" placeholder="Not Başlığı">
+                <textarea id="noteContentInput" placeholder="Not içeriği..."></textarea>
+                <button class="btn-primary" onclick="notesModule.addNote()">Not Ekle</button>
             </div>
-            <div class="grid-3" id="notesList"></div>
+            <div class="grid-3" id="notesGridContainer"></div>
         </div>
     </div>
 
-    <!-- 6. HABERLER PENCERESİ -->
-    <div class="window" id="win-news">
-        <div class="window-header">
-            <span>📰 Haberler & Gündem</span>
+    <!-- 6. Haberler (GNews API) -->
+    <div class="window" id="win-news" onmousedown="bringToFront('news')">
+        <div class="window-header" onmousedown="initDrag(event, 'news')">
+            <span>📰 Haber Merkezi (GNews)</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('news')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('news')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('news')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div class="grid-2" id="newsList">
-                <div class="card">
-                    <span class="badge">Teknoloji</span>
-                    <h3 style="margin: 8px 0;">Yapay Zekâ ve Web Teknolojilerinde Yeni Dönem</h3>
-                    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Kaynak: Tech Daily | Bugün</p>
-                    <p>Tek sayfalı web uygulamaları tarayıcılarda tam teşekküllü masaüstü deneyimi sunmaya başladı...</p>
-                </div>
-                <div class="card">
-                    <span class="badge">Spor</span>
-                    <h3 style="margin: 8px 0;">Şampiyonlar Ligi Maçlarında Kritik Eşleşmeler</h3>
-                    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Kaynak: Spor Servisi | Dün</p>
-                    <p>Avrupa'nın dev kulüpleri üst tur için sahaya çıkıyor. Heyecan dorukta...</p>
-                </div>
+            <div class="card" style="display:flex; gap:10px; align-items:center;">
+                <select id="newsCategorySelect" style="margin:0; width:200px;" onchange="newsModule.fetchNews()">
+                    <option value="general">Genel</option>
+                    <option value="world">Dünya</option>
+                    <option value="technology">Teknoloji</option>
+                    <option value="science">Bilim</option>
+                    <option value="sports">Spor</option>
+                    <option value="entertainment">Eğlence</option>
+                </select>
+                <button class="btn-primary" style="width:auto;" onclick="newsModule.fetchNews()">Yenile</button>
             </div>
+            <div id="newsLoading" style="display:none; text-align:center; padding:20px;">⏳ GNews üzerinden haberler yükleniyor...</div>
+            <div id="newsError" style="color:var(--danger); display:none; padding:10px 0;"></div>
+            <div class="grid-2" id="newsContainer"></div>
         </div>
     </div>
 
-    <!-- 7. MÜZİK MERKEZİ PENCERESİ -->
-    <div class="window" id="win-music">
-        <div class="window-header">
-            <span>🎵 Müzik Merkezi (MP3 Çalar)</span>
+    <!-- 7. Müzik Çalar -->
+    <div class="window" id="win-music" onmousedown="bringToFront('music')">
+        <div class="window-header" onmousedown="initDrag(event, 'music')">
+            <span>🎵 Müzik Çalar</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('music')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('music')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('music')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div class="music-player-bar card">
-                <div class="sound-wave">
-                    <div class="sound-bar"></div>
-                    <div class="sound-bar"></div>
-                    <div class="sound-bar"></div>
-                    <div class="sound-bar"></div>
-                </div>
+            <div class="card" style="display:flex; align-items:center; gap:15px;">
+                <div style="font-size:2.5rem;">🎵</div>
                 <div style="flex:1;">
-                    <h4 id="currentSongTitle">Müzik Seçilmedi</h4>
-                    <p id="currentSongArtist" style="font-size:0.85rem; color:var(--text-muted);">Yerel Müzik Çalar</p>
+                    <h3 id="currentSongTitle">Parça Seçilmedi</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">Yerel MP3 Çalar</p>
                 </div>
-                <div style="display:flex; gap:10px; align-items:center;">
-                    <button class="btn-secondary" onclick="musicModule.prevSong()">⏮</button>
-                    <button class="btn-primary" onclick="musicModule.togglePlay()" id="playPauseBtn">▶</button>
-                    <button class="btn-secondary" onclick="musicModule.nextSong()">⏭</button>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn-secondary" onclick="musicModule.prev()">⏮</button>
+                    <button class="btn-primary" style="width:auto;" onclick="musicModule.togglePlay()" id="musicPlayBtn">▶</button>
+                    <button class="btn-secondary" onclick="musicModule.next()">⏭</button>
                 </div>
             </div>
-
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>Yerel MP3 Dosyası Ekle</h3>
-                <p style="color:var(--text-muted); font-size:0.9rem; margin: 8px 0;">Cihazınızdan MP3 müzik dosyaları seçin (Dosyalar tarayıcı hafızasında oturum süresince korunur).</p>
-                <input type="file" id="mp3FileInput" accept="audio/mp3, audio/*" multiple onchange="musicModule.handleFiles(this.files)">
+            <div class="card">
+                <h3>MP3 Dosyası Ekle</h3>
+                <input type="file" accept="audio/mp3, audio/*" multiple onchange="musicModule.addFiles(this.files)" style="margin-top:10px;">
             </div>
-
             <div class="card">
                 <h3>Çalma Listesi</h3>
-                <div id="playlistContainer" style="margin-top: 15px; display:flex; flex-direction:column; gap:8px;">
-                    <p style="color:var(--text-muted);">Henüz parça eklenmedi.</p>
-                </div>
+                <div id="playlistList" style="margin-top:10px; display:flex; flex-direction:column; gap:6px;"><p style="color:var(--text-muted);">Liste boş.</p></div>
             </div>
         </div>
     </div>
 
-    <!-- 8. YOUTUBE MERKEZİ PENCERESİ -->
-    <div class="window" id="win-youtube">
-        <div class="window-header">
-            <span>📺 YouTube Merkezi & Shorts</span>
+    <!-- 8. YouTube -->
+    <div class="window" id="win-youtube" onmousedown="bringToFront('youtube')">
+        <div class="window-header" onmousedown="initDrag(event, 'youtube')">
+            <span>📺 YouTube İzleme Merkezi</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('youtube')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('youtube')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('youtube')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>Video veya Shorts Bağlantısı</h3>
-                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <input type="text" id="ytUrlInput" placeholder="https://www.youtube.com/watch?v=..." style="margin:0; flex:1;">
-                    <button class="btn-primary" onclick="youtubeModule.loadVideo()">Oynat</button>
-                </div>
+            <div class="card" style="display:flex; gap:10px;">
+                <input type="text" id="ytUrlInput" placeholder="YouTube Video URL veya ID..." style="margin:0; flex:1;">
+                <button class="btn-primary" style="width:auto;" onclick="youtubeModule.load()">Oynat</button>
             </div>
-
-            <div class="grid-2">
-                <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:300px; background:#000;">
-                    <div id="ytPlayerContainer" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; text-align:center; padding:20px;">
-                        Video Oynatıcı Alanı<br><small style="color:#888;">Bağlantı girin veya listeden seçin.</small>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Favori Videolar & Shorts</h3>
-                    <div id="ytFavList" style="margin-top: 15px; display:flex; flex-direction:column; gap:10px;">
-                        <div style="padding:10px; background:var(--bg-color); border-radius:8px; cursor:pointer;" onclick="youtubeModule.playPreset('dQw4w9WgXcQ')">
-                            <strong>Örnek Video</strong>
-                            <div style="font-size:0.8rem; color:var(--text-muted);">YouTube Örnek Bağlantı</div>
-                        </div>
-                    </div>
-                    <button class="btn-secondary" style="width:100%; margin-top:15px;" onclick="youtubeModule.showGoogleAuthInfo()">🔐 Google Hesabı & OAuth Bilgisi</button>
-                </div>
+            <div class="card" style="background:#000; height:320px; display:flex; align-items:center; justify-content:center; color:#fff;" id="ytPlayerBox">
+                YouTube Oynatıcı Alanı
             </div>
         </div>
     </div>
 
-    <!-- 9. AYARLAR PENCERESİ -->
-    <div class="window" id="win-settings">
-        <div class="window-header">
-            <span>⚙️ Ayarlar & Yapılandırma</span>
+    <!-- 9. Google Arama -->
+    <div class="window" id="win-google" onmousedown="bringToFront('google')">
+        <div class="window-header" onmousedown="initDrag(event, 'google')">
+            <span>🌐 Google Arama Uygulaması</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('google')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('google')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('google')">✕</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="card" style="text-align:center; padding:30px;">
+                <h1 style="color:var(--primary); margin-bottom:15px;">Google Arama</h1>
+                <div style="display:flex; max-width:500px; margin:0 auto; gap:10px;">
+                    <input type="text" id="googleQueryInput" placeholder="Arama yap..." style="margin:0; flex:1;" onkeypress="if(event.key==='Enter') googleModule.search()">
+                    <button class="btn-primary" style="width:auto;" onclick="googleModule.search()">Ara</button>
+                </div>
+            </div>
+            <div class="card" id="googleResultsCard" style="display:none;">
+                <h3>Arama Sonuçları Alternatifi</h3>
+                <p id="googleResultText" style="margin:10px 0;"></p>
+                <a id="googleExternalLink" href="#" target="_blank" class="btn-primary" style="display:inline-block; text-align:center; text-decoration:none;">Tarayıcıda Aç</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Uygulama Mağazası (Microsoft Store benzeri) -->
+    <div class="window" id="win-store" onmousedown="bringToFront('store')">
+        <div class="window-header" onmousedown="initDrag(event, 'store')">
+            <span>🛒 Uygulama Mağazası (App Store)</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('store')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('store')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('store')">✕</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <p style="color:var(--text-muted); margin-bottom:15px;">My AI HUB ekosistemine özel web uygulamalarını keşfedin ve yükleyin.</p>
+            <div class="grid-3" id="storeAppsGrid"></div>
+        </div>
+    </div>
+
+    <!-- 11. Dosya Yöneticisi -->
+    <div class="window" id="win-files" onmousedown="bringToFront('files')">
+        <div class="window-header" onmousedown="initDrag(event, 'files')">
+            <span>📁 Dosya Yöneticisi</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('files')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('files')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('files')">✕</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="card">
+                <h3>Yerel Depolama & Dosyalar</h3>
+                <p style="color:var(--text-muted); font-size:0.9rem; margin-top:8px;">Uygulama içinde oluşturulan notlar ve müzikler listelenmektedir.</p>
+                <div id="fileManagerList" style="margin-top:15px; display:flex; flex-direction:column; gap:8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. Hesap Makinesi -->
+    <div class="window" id="win-calculator" onmousedown="bringToFront('calculator')">
+        <div class="window-header" onmousedown="initDrag(event, 'calculator')">
+            <span>🧮 Hesap Makinesi</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('calculator')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('calculator')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('calculator')">✕</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <input type="text" id="calcScreen" readonly style="font-size:2rem; text-align:right; margin-bottom:15px; background:var(--bg-color);">
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+                ${['7','8','9','/','4','5','6','*','1','2','3','-','C','0','=','+'].map(c=>`
+                    <button class="btn-secondary" style="font-size:1.5rem;" onclick="calcBtn('${c}')">${c}</button>
+                `).join('')}
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. Takvim -->
+    <div class="window" id="win-calendar" onmousedown="bringToFront('calendar')">
+        <div class="window-header" onmousedown="initDrag(event, 'calendar')">
+            <span>📅 Takvim</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('calendar')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('calendar')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('calendar')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><div class="card" style="text-align:center;"><h2 id="calHeader">Ekim 2026</h2><p style="color:var(--text-muted); margin-top:10px;">Bugün: Cumartesi, 10 Ekim 2026</p></div></div>
+    </div>
+
+    <!-- 14. Saat -->
+    <div class="window" id="win-clock" onmousedown="bringToFront('clock')">
+        <div class="window-header" onmousedown="initDrag(event, 'clock')">
+            <span>⏰ Saat & Kronometre</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('clock')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('clock')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('clock')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><div class="card" style="text-align:center;"><h1 id="winClockDisplay" style="font-size:3.5rem; color:var(--primary);">00:00:00</h1></div></div>
+    </div>
+
+    <!-- 15. Hava Durumu -->
+    <div class="window" id="win-weather" onmousedown="bringToFront('weather')">
+        <div class="window-header" onmousedown="initDrag(event, 'weather')">
+            <span>🌤️ Hava Durumu</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('weather')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('weather')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('weather')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><div class="card" style="text-align:center;"><h2>İstanbul, Türkiye</h2><p style="font-size:3rem; margin:15px 0;">🌤️ 22°C</p><p style="color:var(--text-muted);">Parçalı Bulutlu</p></div></div>
+    </div>
+
+    <!-- 16. Görev Yöneticisi -->
+    <div class="window" id="win-taskmgr" onmousedown="bringToFront('taskmgr')">
+        <div class="window-header" onmousedown="initDrag(event, 'taskmgr')">
+            <span>⚡ Görev Yöneticisi</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('taskmgr')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('taskmgr')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('taskmgr')">✕</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="card">
+                <h3>Açık Pencereler & İşlemler</h3>
+                <div id="taskManagerList" style="margin-top:10px; display:flex; flex-direction:column; gap:8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 17. Fotoğraf Görüntüleyici -->
+    <div class="window" id="win-photos" onmousedown="bringToFront('photos')">
+        <div class="window-header" onmousedown="initDrag(event, 'photos')">
+            <span>🖼️ Fotoğraf Görüntüleyici</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('photos')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('photos')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('photos')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><div class="card" style="text-align:center;"><input type="file" accept="image/*" onchange="loadPhoto(this)" style="margin-bottom:15px;"><div id="photoContainer"><p style="color:var(--text-muted)">Görsel seçilmedi.</p></div></div></div>
+    </div>
+
+    <!-- 18. Yapışkan Notlar -->
+    <div class="window" id="win-stickies" onmousedown="bringToFront('stickies')">
+        <div class="window-header" onmousedown="initDrag(event, 'stickies')">
+            <span>📌 Yapışkan Notlar</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('stickies')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('stickies')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('stickies')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><textarea style="height:100%; width:100%; background:var(--warning); color:#000; font-weight:bold; padding:15px; border-radius:12px;" placeholder="Hızlı yapışkan notunuzu buraya yazın..."></textarea></div>
+    </div>
+
+    <!-- 19. Renk Seçici -->
+    <div class="window" id="win-colorpicker" onmousedown="bringToFront('colorpicker')">
+        <div class="window-header" onmousedown="initDrag(event, 'colorpicker')">
+            <span>🎨 Renk Seçici</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('colorpicker')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('colorpicker')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('colorpicker')">✕</div>
+            </div>
+        </div>
+        <div class="window-body" style="text-align:center;"><input type="color" id="colorPickerInput" value="#4f46e5" style="width:100px; height:100px; border:none; cursor:pointer;" onchange="document.getElementById('colorCode').innerText=this.value"><h2 id="colorCode" style="margin-top:20px;">#4f46e5</h2></div>
+    </div>
+
+    <!-- 20. Sistem Bilgisi -->
+    <div class="window" id="win-sysinfo" onmousedown="bringToFront('sysinfo')">
+        <div class="window-header" onmousedown="initDrag(event, 'sysinfo')">
+            <span>💻 Sistem Bilgisi</span>
+            <div class="window-controls">
+                <div class="window-btn" onclick="minimizeWindow('sysinfo')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('sysinfo')">🗖</div>
+                <div class="window-btn close" onclick="closeWindow('sysinfo')">✕</div>
+            </div>
+        </div>
+        <div class="window-body"><div class="card"><h3>My AI HUB — Pro OS</h3><p style="margin-top:10px; color:var(--text-muted);">Çalışma Ortamı: Vanilla JS / HTML5<br>Ekran Çözünürlüğü: <span id="sysRes"></span><br>Tarayıcı: <span id="sysBrowser"></span></p></div></div>
+    </div>
+
+    <!-- 21. Ayarlar -->
+    <div class="window" id="win-settings" onmousedown="bringToFront('settings')">
+        <div class="window-header" onmousedown="initDrag(event, 'settings')">
+            <span>⚙️ Gelişmiş Ayarlar</span>
             <div class="window-controls">
                 <div class="window-btn" onclick="minimizeWindow('settings')">_</div>
+                <div class="window-btn" onclick="maximizeWindow('settings')">🗖</div>
                 <div class="window-btn close" onclick="closeWindow('settings')">✕</div>
             </div>
         </div>
         <div class="window-body">
-            
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>🎨 Görünüm & Tema</h3>
-                <div style="margin-top: 15px; display:flex; gap:10px; flex-wrap:wrap;">
+            <div class="card">
+                <h3>Görünüm & Tema</h3>
+                <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
                     <button class="btn-secondary" onclick="app.setTheme('light')">☀️ Açık Tema</button>
                     <button class="btn-secondary" onclick="app.setTheme('dark')">🌙 Koyu Tema</button>
-                    <button class="btn-secondary" onclick="app.setAnimations('normal')">✨ Animasyonlar: Normal</button>
-                    <button class="btn-secondary" onclick="app.setAnimations('reduced')">⚡ Animasyonlar: Azaltılmış</button>
+                    <button class="btn-secondary" onclick="app.setAnimations('normal')">✨ Animasyon: Normal</button>
+                    <button class="btn-secondary" onclick="app.setAnimations('reduced')">⚡ Animasyon: Azalt</button>
                 </div>
             </div>
-
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>🤖 Çoklu Yapay Zekâ Sağlayıcıları (4 Yapılandırma)</h3>
-                <div style="margin-top: 15px; display:flex; flex-direction:column; gap:15px;">
-                    <div>
-                        <label><b>Yapay Zekâ 1 (Groq) API Key</b></label>
-                        <input type="password" id="aiKey1" placeholder="BURAYA APİ KEY YAZILACAK">
-                    </div>
-                    <div>
-                        <label><b>Yapay Zekâ 2 (Yedek) API Key</b></label>
-                        <input type="password" id="aiKey2" placeholder="BURAYA APİ KEY YAZILACAK">
-                    </div>
-                    <div>
-                        <label><b>Yapay Zekâ 3 API Key</b></label>
-                        <input type="password" id="aiKey3" placeholder="BURAYA APİ KEY YAZILACAK">
-                    </div>
-                    <div>
-                        <label><b>Yapay Zekâ 4 API Key</b></label>
-                        <input type="password" id="aiKey4" placeholder="BURAYA APİ KEY YAZILACAK">
-                    </div>
-                    <button class="btn-primary" onclick="aiModule.saveConfigs()">💾 AI Yapılandırmalarını Kaydet</button>
-                </div>
-            </div>
-
-            <div class="card" style="margin-bottom: 20px;">
-                <h3>⚽ Spor API Ayarı</h3>
-                <div style="margin-top: 15px;">
-                    <label>API-Football Key</label>
-                    <input type="password" id="footballKey" placeholder="BURAYA API-FOOTBALL KEY YAZILACAK">
-                    <button class="btn-primary" onclick="settingsModule.saveFootballKey()" style="margin-top:10px;">💾 Spor Anahtarını Kaydet</button>
-                </div>
-            </div>
-
             <div class="card">
-                <h3>⚠️ Tehlikeli Bölge</h3>
-                <p style="color:var(--text-muted); margin: 10px 0;">Tüm yerel verileri, notları ve anahtarları sıfırlar.</p>
-                <button class="btn-danger" onclick="settingsModule.clearData()">🗑️ Tüm Verileri Temizle</button>
+                <h3>GNews API Anahtarı (Haberler için)</h3>
+                <input type="password" id="gnewsKeyInput" placeholder="BURAYA GNEWS API KEY YAZILACAK" style="margin-top:10px;">
+                <button class="btn-primary" onclick="settingsModule.saveGnews()">💾 Kaydet</button>
+            </div>
+            <div class="card">
+                <h3>Çoklu AI Yapılandırması (4 Sağlayıcı)</h3>
+                <input type="password" id="aiKey1" placeholder="AI 1 (Groq) Key" style="margin-top:8px;">
+                <input type="password" id="aiKey2" placeholder="AI 2 Key" style="margin-top:8px;">
+                <button class="btn-primary" onclick="aiModule.saveConfigs()" style="margin-top:10px;">💾 AI Key'leri Kaydet</button>
+            </div>
+            <div class="card">
+                <h3>Spor API Anahtarı (API-Football)</h3>
+                <input type="password" id="footballKeyInput" placeholder="BURAYA API-FOOTBALL KEY YAZILACAK" style="margin-top:10px;">
+                <button class="btn-primary" onclick="settingsModule.saveFootball()">💾 Kaydet</button>
+            </div>
+            <div class="card">
+                <h3>Tehlikeli Bölge</h3>
+                <button class="btn-danger" onclick="settingsModule.clearData()" style="margin-top:10px;">🗑️ Tüm Yerel Verileri Temizle</button>
             </div>
         </div>
     </div>
 
-    <!-- GENEL MODAL CONTAINER (Oyunlar İçin) -->
-    <div id="modalOverlay" class="modal-overlay">
-        <div class="modal-content" id="modalContent">
-            <button class="modal-close" onclick="ui.closeModal()">✕</button>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
-    <!-- TOAST BİLDİRİM ALANI -->
+    <!-- MODAL & TOAST -->
+    <div id="modalOverlay" class="modal-overlay"><div class="modal-content"><button style="position:absolute; top:15px; right:15px; background:none; font-size:1.4rem;" onclick="ui.closeModal()">✕</button><div id="modalBody"></div></div></div>
     <div id="toast-container"></div>
 
-    <!-- ================= JAVASCRIPT KODLARI ================= -->
+    <!-- ================= JAVASCRIPT ÇEKİRDEĞİ ================= -->
     <script>
-        // --- UI & STORAGE UTILS ---
+        // --- UI & TOAST & MODAL ---
         const ui = {
-            showToast(message, type = 'success') {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                toast.style.background = type === 'success' ? 'var(--success)' : (type === 'danger' ? 'var(--danger)' : 'var(--text-main)');
-                toast.innerHTML = message;
-                container.appendChild(toast);
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => toast.remove(), 300);
-                }, 3000);
+            showToast(msg) {
+                const c = document.getElementById('toast-container');
+                const t = document.createElement('div');
+                t.className = 'toast';
+                t.innerText = msg;
+                c.appendChild(t);
+                setTimeout(() => t.remove(), 3000);
             },
             openModal(html) {
                 document.getElementById('modalBody').innerHTML = html;
@@ -556,87 +628,181 @@
             },
             closeModal() {
                 document.getElementById('modalOverlay').classList.remove('show');
-                document.getElementById('modalBody').innerHTML = '';
             }
         };
 
         const store = {
-            get(key, defaultValue = null) {
-                const val = localStorage.getItem(`aihub_pro_${key}`);
-                return val ? JSON.parse(val) : defaultValue;
-            },
-            set(key, value) {
-                localStorage.setItem(`aihub_pro_${key}`, JSON.stringify(value));
-            }
+            get(k, def = null) { const v = localStorage.getItem(`aihub_ultimate_${k}`); return v ? JSON.parse(v) : def; },
+            set(k, val) { localStorage.setItem(`aihub_ultimate_${k}`, JSON.stringify(val)); }
         };
 
-        // --- WINDOWS DESKTOP MANAGER ---
-        function openWindow(id) {
-            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+        // --- UYGULAMA KATALOĞU (STORE & DESKTOP) ---
+        const appRegistry = [
+            { id: 'ai', name: 'Yapay Zekâ', emoji: '🤖', cat: 'Üretkenlik', installed: true },
+            { id: 'sports', name: 'Spor Merkezi', emoji: '⚽', cat: 'Eğlence', installed: true },
+            { id: 'games', name: 'Oyun Merkezi', emoji: '🎮', cat: 'Eğlence', installed: true },
+            { id: 'tools', name: 'Araçlar', emoji: '🛠️', cat: 'Araçlar', installed: true },
+            { id: 'notes', name: 'Notlar', emoji: '📝', cat: 'Üretkenlik', installed: true },
+            { id: 'news', name: 'Haberler', emoji: '📰', cat: 'İnternet', installed: true },
+            { id: 'music', name: 'Müzik Çalar', emoji: '🎵', cat: 'Eğlence', installed: true },
+            { id: 'youtube', name: 'YouTube', emoji: '📺', cat: 'İnternet', installed: true },
+            { id: 'google', name: 'Google', emoji: '🌐', cat: 'İnternet', installed: true },
+            { id: 'store', name: 'Mağaza', emoji: '🛒', cat: 'Araçlar', installed: true },
+            { id: 'files', name: 'Dosyalar', emoji: '📁', cat: 'Araçlar', installed: true },
+            { id: 'calculator', name: 'Hesap Makinesi', emoji: '🧮', cat: 'Araçlar', installed: true },
+            { id: 'calendar', name: 'Takvim', emoji: '📅', cat: 'Üretkenlik', installed: true },
+            { id: 'clock', name: 'Saat', emoji: '⏰', cat: 'Araçlar', installed: true },
+            { id: 'weather', name: 'Hava Durumu', emoji: '🌤️', cat: 'Araçlar', installed: true },
+            { id: 'taskmgr', name: 'Görev Yöneticisi', emoji: '⚡', cat: 'Araçlar', installed: true },
+            { id: 'photos', name: 'Fotoğraflar', emoji: '🖼️', cat: 'Eğlence', installed: true },
+            { id: 'stickies', name: 'Yapışkan Not', emoji: '📌', cat: 'Üretkenlik', installed: true },
+            { id: 'colorpicker', name: 'Renk Seçici', emoji: '🎨', cat: 'Araçlar', installed: true },
+            { id: 'sysinfo', name: 'Sistem Bilgisi', emoji: '💻', cat: 'Araçlar', installed: true },
+            { id: 'settings', name: 'Ayarlar', emoji: '⚙️', cat: 'Araçlar', installed: true }
+        ];
+
+        // --- PENCERE VE MASAÜSTÜ YÖNETİMİ ---
+        let highestZ = 1000;
+        function bringToFront(id) {
             const win = document.getElementById(`win-${id}`);
-            if(win) win.classList.add('active');
-            updateTaskbar();
+            if(win) {
+                highestZ++;
+                win.style.zIndex = highestZ;
+            }
         }
+
+        function openWindow(id) {
+            const win = document.getElementById(`win-${id}`);
+            if(win) {
+                win.classList.add('active');
+                bringToFront(id);
+                updateTaskbar();
+            }
+        }
+
         function closeWindow(id) {
             const win = document.getElementById(`win-${id}`);
             if(win) win.classList.remove('active');
             updateTaskbar();
         }
+
         function minimizeWindow(id) {
             closeWindow(id);
         }
-        function toggleStartMenu() {
-            document.getElementById('startMenu').classList.toggle('open');
+
+        function maximizeWindow(id) {
+            const win = document.getElementById(`win-${id}`);
+            if(win) win.classList.toggle('maximized');
         }
+
         function updateTaskbar() {
-            const container = document.getElementById('taskbarApps');
-            container.innerHTML = '';
+            const list = document.getElementById('taskbarAppsList');
+            list.innerHTML = '';
             document.querySelectorAll('.window').forEach(win => {
                 if(win.classList.contains('active')) {
                     const id = win.id.replace('win-', '');
                     const title = win.querySelector('.window-header span').innerText;
                     const item = document.createElement('div');
-                    item.className = 'taskbar-item';
+                    item.className = 'taskbar-item active';
                     item.innerHTML = `<span>📂</span> ${title}`;
-                    item.onclick = () => openWindow(id);
-                    container.appendChild(item);
+                    item.onclick = () => bringToFront(id);
+                    list.appendChild(item);
                 }
             });
         }
 
-        // --- APP KERNEL ---
+        // PENCERE SÜRÜKLEME (DRAG & DROP)
+        let activeDragWin = null, dragOffsetX = 0, dragOffsetY = 0;
+        function initDrag(e, id) {
+            activeDragWin = document.getElementById(`win-${id}`);
+            bringToFront(id);
+            const rect = activeDragWin.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+        function onDrag(e) {
+            if(!activeDragWin) return;
+            activeDragWin.style.left = (e.clientX - dragOffsetX) + 'px';
+            activeDragWin.style.top = (e.clientY - dragOffsetY) + 'px';
+        }
+        function stopDrag() {
+            activeDragWin = null;
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+
+        function toggleStartMenu() {
+            document.getElementById('startMenu').classList.toggle('open');
+        }
+
+        function renderDesktopAndStartMenu() {
+            const installed = store.get('installed_apps', appRegistry.map(a => a.id));
+            
+            // Masaüstü İkonları
+            const grid = document.getElementById('desktopIconsGrid');
+            grid.innerHTML = appRegistry.filter(a => installed.includes(a.id)).map(a => `
+                <div class="desktop-icon" onclick="openWindow('${a.id}')">
+                    <span>${a.emoji}</span>${a.name}
+                </div>
+            `).join('');
+
+            // Başlat Menüsü
+            const smGrid = document.getElementById('startMenuGrid');
+            smGrid.innerHTML = appRegistry.filter(a => installed.includes(a.id)).map(a => `
+                <div class="start-menu-item" onclick="openWindow('${a.id}'); toggleStartMenu();">
+                    <span>${a.emoji}</span>${a.name}
+                </div>
+            `).join('');
+
+            // Mağaza listesi
+            renderStore(installed);
+        }
+
+        function filterStartMenu(q) {
+            const installed = store.get('installed_apps', appRegistry.map(a => a.id));
+            const smGrid = document.getElementById('startMenuGrid');
+            const filtered = appRegistry.filter(a => installed.includes(a.id) && a.name.toLowerCase().includes(q.toLowerCase()));
+            smGrid.innerHTML = filtered.map(a => `
+                <div class="start-menu-item" onclick="openWindow('${a.id}'); toggleStartMenu();">
+                    <span>${a.emoji}</span>${a.name}
+                </div>
+            `).join('');
+        }
+
+        // --- APPS & MODULES ---
         const app = {
             init() {
-                this.updateClock();
-                setInterval(() => this.updateClock(), 1000);
-                
-                const theme = store.get('theme', 'light');
-                this.setTheme(theme);
-                
-                const anim = store.get('animations', 'normal');
-                this.setAnimations(anim);
+                setInterval(() => {
+                    const now = new Date();
+                    const t = now.toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
+                    const d = now.toLocaleDateString('tr-TR', {day:'numeric', month:'long', weekday:'short'});
+                    document.getElementById('widgetClock').innerText = t;
+                    document.getElementById('widgetDate').innerText = d;
+                    document.getElementById('taskbarClock').innerText = t;
+                    document.getElementById('winClockDisplay').innerText = now.toLocaleTimeString('tr-TR');
+                }, 1000);
 
-                // Modülleri yükle
+                document.body.setAttribute('data-theme', store.get('theme', 'light'));
+                document.body.setAttribute('data-animations', store.get('animations', 'normal'));
+
+                renderDesktopAndStartMenu();
                 gamesModule.renderGrid();
                 toolsModule.renderGrid();
                 notesModule.renderList();
                 sportsModule.renderHomeFavs();
-                aiModule.loadConfigsToUI();
+                aiModule.loadConfigs();
                 
-                document.getElementById('footballKey').value = store.get('footballKey', '');
+                document.getElementById('footballKeyInput').value = store.get('footballKey', '');
+                document.getElementById('gnewsKeyInput').value = store.get('gnewsKey', '');
+                document.getElementById('sysRes').innerText = `${window.innerWidth}x${window.innerHeight}`;
+                document.getElementById('sysBrowser').innerText = navigator.userAgentData?.platform || navigator.platform;
             },
-            updateClock() {
-                const now = new Date();
-                const timeStr = now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-                const dateStr = now.toLocaleDateString('tr-TR', {weekday: 'long', day:'numeric', month:'long'});
-                document.getElementById('widgetClock').innerText = timeStr;
-                document.getElementById('widgetDate').innerText = dateStr;
-                document.getElementById('taskbarClock').innerText = timeStr;
-            },
-            setTheme(theme) {
-                document.body.setAttribute('data-theme', theme);
-                store.set('theme', theme);
-                ui.showToast(`Tema değiştirildi: ${theme}`);
+            setTheme(t) {
+                document.body.setAttribute('data-theme', t);
+                store.set('theme', t);
+                ui.showToast(`Tema: ${t}`);
             },
             setAnimations(mode) {
                 document.body.setAttribute('data-animations', mode);
@@ -645,504 +811,312 @@
             }
         };
 
-        // --- 1. AI MODULE (ÇOKLU SAĞLAYICI) ---
+        // 1. AI MODULE
         const aiModule = {
-            currentConfigId: '1',
-            switchConfig(id) {
-                this.currentConfigId = id;
-                ui.showToast(`Yapay Zekâ ${id} seçildi.`);
-            },
+            currentId: '1',
+            switchConfig(id) { this.currentId = id; ui.showToast(`AI Model ${id} seçildi.`); },
             saveConfigs() {
-                const c1 = document.getElementById('aiKey1').value.trim();
-                const c2 = document.getElementById('aiKey2').value.trim();
-                const c3 = document.getElementById('aiKey3').value.trim();
-                const c4 = document.getElementById('aiKey4').value.trim();
-                store.set('aiKeys', {c1, c2, c3, c4});
+                store.set('ai_keys', { c1: document.getElementById('aiKey1').value, c2: document.getElementById('aiKey2').value });
                 ui.showToast('✅ AI Yapılandırmaları kaydedildi.');
             },
-            loadConfigsToUI() {
-                const keys = store.get('aiKeys', {});
-                if(keys.c1) document.getElementById('aiKey1').value = keys.c1;
-                if(keys.c2) document.getElementById('aiKey2').value = keys.c2;
-                if(keys.c3) document.getElementById('aiKey3').value = keys.c3;
-                if(keys.c4) document.getElementById('aiKey4').value = keys.c4;
+            loadConfigs() {
+                const k = store.get('ai_keys', {});
+                if(k.c1) document.getElementById('aiKey1').value = k.c1;
+                if(k.c2) document.getElementById('aiKey2').value = k.c2;
             },
             async sendMessage() {
                 const input = document.getElementById('chatInput');
-                const text = input.value.trim();
-                if(!text) return;
-                
-                const keys = store.get('aiKeys', {});
-                const key = keys[`c${this.currentConfigId}`];
-                
-                if(!key) {
-                    ui.showToast(`❌ Yapay Zekâ ${this.currentConfigId} için API Key eksik!`, 'danger');
-                    openWindow('settings');
-                    return;
-                }
+                const txt = input.value.trim();
+                if(!txt) return;
+                const keys = store.get('ai_keys', {});
+                const key = keys[`c${this.currentId}`] || store.get('aiKey');
+                if(!key) { ui.showToast('❌ API Key gerekli!', 'danger'); openWindow('settings'); return; }
 
-                this.addMessage(text, 'user');
+                this.appendMsg(txt, 'user');
                 input.value = '';
-                const loaderId = this.addMessage('Yazıyor...', 'ai');
+                const loader = this.appendMsg('Yazıyor...', 'ai');
 
                 try {
                     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-                        body: JSON.stringify({ model: "llama3-8b-8192", messages: [{role: "user", content: text}] })
+                        body: JSON.stringify({ model: 'llama3-8b-8192', messages: [{role:'user', content:txt}] })
                     });
-                    if(!res.ok) throw new Error('API Hatası: Model veya Anahtar geçersiz.');
                     const data = await res.json();
-                    document.getElementById(loaderId).innerText = data.choices[0].message.content;
+                    document.getElementById(loader).innerText = data.choices[0].message.content;
                 } catch(e) {
-                    document.getElementById(loaderId).innerText = `Hata (AI ${this.currentConfigId}): ${e.message}`;
-                    ui.showToast('❌ AI İstek Hatası', 'danger');
+                    document.getElementById(loader).innerText = `Hata: ${e.message}`;
                 }
             },
-            addMessage(text, sender) {
-                const container = document.getElementById('chatMessages');
-                const msg = document.createElement('div');
-                const id = 'ai_msg_' + Date.now();
-                msg.id = id;
-                msg.className = `message msg-${sender}`;
-                msg.innerText = text;
-                container.appendChild(msg);
-                container.scrollTop = container.scrollHeight;
+            appendMsg(txt, sender) {
+                const c = document.getElementById('chatMessages');
+                const d = document.createElement('div');
+                const id = 'msg_' + Math.random();
+                d.id = id;
+                d.style.cssText = sender === 'user' ? 'background:var(--primary); color:#fff; padding:10px 14px; border-radius:12px; max-width:80%; align-self:flex-end;' : 'background:var(--border-color); padding:10px 14px; border-radius:12px; max-width:80%; align-self:flex-start;';
+                d.innerText = txt;
+                c.appendChild(d);
+                c.scrollTop = c.scrollHeight;
                 return id;
-            },
-            clearChat() {
-                document.getElementById('chatMessages').innerHTML = '<div class="message msg-ai">Sohbet temizlendi.</div>';
             }
         };
 
-        // --- 2. SPORTS MODULE ---
+        // 2. SPORTS MODULE
         const sportsModule = {
-            currentTeam: null,
-            async apiCall(endpoint) {
-                const key = store.get('footballKey', '');
-                if(!key) throw new Error('API Anahtarı eksik');
-                const res = await fetch(`https://v3.football.api-sports.io/${endpoint}`, { headers: { 'x-apisports-key': key } });
-                if(!res.ok) throw new Error('API Bağlantı Hatası');
-                const data = await res.json();
-                if(data.errors && Object.keys(data.errors).length > 0) throw new Error(Object.values(data.errors)[0]);
-                return data;
-            },
+            team: null,
             async searchTeam() {
-                const query = document.getElementById('teamSearchInput').value.trim();
-                if(!query) return;
+                const q = document.getElementById('teamSearchInput').value.trim();
                 const key = store.get('footballKey', '');
-                if(!key) {
-                    ui.showToast('❌ Ayarlardan API-Football Key girmelisiniz!', 'danger');
-                    openWindow('settings');
-                    return;
-                }
-                document.getElementById('sports-error').style.display = 'none';
+                if(!key) { ui.showToast('❌ API-Football Key gerekli', 'danger'); openWindow('settings'); return; }
                 document.getElementById('sports-loading').style.display = 'block';
-                document.getElementById('team-details').style.display = 'none';
-
                 try {
-                    const searchData = await this.apiCall(`teams?search=${encodeURIComponent(query)}`);
-                    if(searchData.results === 0) throw new Error('Takım bulunamadı.');
-                    const teamInfo = searchData.response[0].team;
-                    const venueInfo = searchData.response[0].venue;
-                    this.currentTeam = teamInfo;
-
-                    document.getElementById('teamName').innerText = teamInfo.name;
-                    document.getElementById('teamLogo').src = teamInfo.logo;
-                    document.getElementById('teamInfo').innerText = `${teamInfo.country} - ${venueInfo.name || 'Bilinmeyen Stadyum'}`;
+                    const res = await fetch(`https://v3.football.api-sports.io/teams?search=${encodeURIComponent(q)}`, { headers: { 'x-apisports-key': key } });
+                    const data = await res.json();
+                    if(data.results === 0) throw new Error('Takım bulunamadı.');
+                    this.team = data.response[0].team;
+                    document.getElementById('teamName').innerText = this.team.name;
+                    document.getElementById('teamLogo').src = this.team.logo;
+                    document.getElementById('teamInfo').innerText = `${this.team.country} - ${data.response[0].venue.name || ''}`;
                     document.getElementById('team-details').style.display = 'block';
-
-                    this.fetchTransfers(teamInfo.id);
-                    this.fetchFixtures(teamInfo.id);
+                    this.fetchTransfers(this.team.id);
                 } catch(e) {
                     document.getElementById('sports-error').innerText = e.message;
                     document.getElementById('sports-error').style.display = 'block';
-                } finally {
-                    document.getElementById('sports-loading').style.display = 'none';
-                }
+                } finally { document.getElementById('sports-loading').style.display = 'none'; }
             },
-            async fetchTransfers(teamId) {
-                const container = document.getElementById('teamTransfers');
-                container.innerHTML = 'Yükleniyor...';
+            async fetchTransfers(id) {
+                const key = store.get('footballKey', '');
                 try {
-                    const data = await this.apiCall(`transfers?team=${teamId}`);
-                    if(data.results === 0) { container.innerHTML = 'Transfer bulunamadı.'; return; }
-                    let allTransfers = [];
-                    data.response.forEach(p => {
-                        p.transfers.forEach(t => {
-                            allTransfers.push({
-                                player: p.player.name,
-                                date: t.date,
-                                type: t.type,
-                                teams: `${t.teams.out.name} ➔ ${t.teams.in.name}`
-                            });
-                        });
-                    });
-                    // En yeni -> En eski sıralama, hatalı tarihleri sona atma
-                    allTransfers.sort((a,b) => {
-                        const dA = new Date(a.date).getTime();
-                        const dB = new Date(b.date).getTime();
-                        if(isNaN(dA)) return 1;
-                        if(isNaN(dB)) return -1;
-                        return dB - dA;
-                    });
-                    container.innerHTML = allTransfers.slice(0, 12).map(t => `
-                        <div style="padding:10px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
-                            <div><strong>${t.player}</strong><div style="font-size:0.85rem; color:var(--text-muted);">${t.teams}</div></div>
-                            <div style="text-align:right; font-size:0.85rem; color:var(--primary);">${t.date || 'Bilinmiyor'}</div>
-                        </div>
-                    `).join('');
-                } catch(e) { container.innerHTML = `Hata: ${e.message}`; }
-            },
-            async fetchFixtures(teamId) {
-                const container = document.getElementById('teamFixtures');
-                container.innerHTML = 'Yükleniyor...';
-                try {
-                    const data = await this.apiCall(`fixtures?team=${teamId}&last=5`);
-                    if(data.results === 0) { container.innerHTML = 'Maç bulunamadı.'; return; }
-                    container.innerHTML = data.response.map(f => `
-                        <div style="padding:10px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <div style="font-size:0.9rem;">${f.teams.home.name} ${f.goals.home ?? '-'} : ${f.goals.away ?? '-'} ${f.teams.away.name}</div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">${f.league.name}</div>
-                            </div>
-                            <div style="font-size:0.85rem; color:var(--text-muted);">${new Date(f.fixture.date).toLocaleDateString('tr-TR')}</div>
-                        </div>
-                    `).join('');
-                } catch(e) { container.innerHTML = `Hata: ${e.message}`; }
+                    const res = await fetch(`https://v3.football.api-sports.io/transfers?team=${id}`, { headers: { 'x-apisports-key': key } });
+                    const data = await res.json();
+                    let list = [];
+                    data.response?.forEach(p => p.transfers?.forEach(t => list.push({ name: p.player.name, date: t.date, from: t.teams.out.name, to: t.teams.in.name })));
+                    list.sort((a,b) => new Date(b.date) - new Date(a.date));
+                    document.getElementById('teamTransfers').innerHTML = list.slice(0,8).map(t=>`<div><b>${t.name}</b> (${t.from} ➔ ${t.to})<br><small>${t.date}</small></div>`).join('<hr style="margin:5px 0;">');
+                } catch(e) { document.getElementById('teamTransfers').innerText = 'Transfer yüklenemedi.'; }
             },
             toggleFollow() {
-                if(!this.currentTeam) return;
+                if(!this.team) return;
                 let favs = store.get('favTeams', []);
-                const exists = favs.find(f => f.id === this.currentTeam.id);
-                if(exists) {
-                    favs = favs.filter(f => f.id !== this.currentTeam.id);
-                    ui.showToast('⭐ Takipten çıkarıldı');
-                } else {
-                    favs.push({id: this.currentTeam.id, name: this.currentTeam.name});
-                    ui.showToast('⭐ Takibe alındı');
-                }
+                if(favs.find(f => f.id === this.team.id)) favs = favs.filter(f => f.id !== this.team.id);
+                else favs.push({ id: this.team.id, name: this.team.name });
                 store.set('favTeams', favs);
                 this.renderHomeFavs();
+                ui.showToast('⭐ Takip güncellendi');
             },
             renderHomeFavs() {
                 const favs = store.get('favTeams', []);
-                const el = document.getElementById('widgetFavs');
-                if(favs.length === 0) { el.innerText = 'Takip edilen takım yok.'; return; }
-                el.innerHTML = favs.map(f => `<div>⚽ ${f.name}</div>`).join('');
+                document.getElementById('widgetFavs').innerHTML = favs.length === 0 ? 'Takip edilen takım yok.' : favs.map(f => `<div>⚽ ${f.name}</div>`).join('');
             }
         };
 
-        // --- 3. GAMES MODULE (25+ MİNİ OYUN) ---
+        // 3. GAMES MODULE
         const gamesModule = {
             list: [
-                // Hafıza & Zeka
-                { id: 'memory', name: 'Hafıza Eşleştirme', cat: 'Hafıza', emoji: '🧠', desc: 'Kartları eşleştir.', start: 'startMemory' },
-                { id: 'simon', name: 'Simon Says', cat: 'Hafıza', emoji: '💡', desc: 'Işık dizisini takip et.', start: 'startSimon' },
-                { id: 'sequence', name: 'Sayı Dizisi Hafızası', cat: 'Hafıza', emoji: '🔢', desc: 'Sayıyı hatırla ve gir.', start: 'startSequence' },
-                { id: 'pattern', name: 'Desen Tamamlama', cat: 'Hafıza', emoji: '🧩', desc: 'Eksik deseni bul.', start: 'startPattern' },
-                // Refleks
-                { id: 'reaction', name: 'Tepki Hızı Testi', cat: 'Refleks', emoji: '⚡', desc: 'Yeşil ışıkta anında tıkla.', start: 'startReaction' },
-                { id: 'clicker', name: '10 Saniye Tıklama', cat: 'Refleks', emoji: '🖱️', desc: 'Sürede en çok tık.', start: 'startClicker' },
-                { id: 'target', name: 'Hedefi Yakala', cat: 'Refleks', emoji: '🎯', desc: 'Rastgele hedeflere vur.', start: 'startTarget' },
-                { id: 'color', name: 'Renk Çatışması', cat: 'Refleks', emoji: '🎨', desc: 'Yazıya değil renge odaklan.', start: 'startColorGame' },
-                // Mantık & Bulmaca
-                { id: 'numberGuess', name: 'Sayı Tahmini', cat: 'Mantık', emoji: '❓', desc: '1-100 arası sayıyı bul.', start: 'startNumberGuess' },
-                { id: 'math', name: 'Hızlı Matematik', cat: 'Mantık', emoji: '➗', desc: 'Zamanla yarışarak işlem yap.', start: 'startMath' },
-                { id: 'tictactoe', name: 'Tic Tac Toe', cat: 'Mantık', emoji: '❌', desc: 'Klasik XOX oyunu.', start: 'startTicTacToe' },
-                { id: 'rps', name: 'Taş Kağıt Makas', cat: 'Mantık', emoji: '✊', desc: 'Bilgisayara karşı oyna.', start: 'startRps' },
-                { id: 'maze', name: 'Labirent Bulmacası', cat: 'Bulmaca', emoji: '🌀', desc: 'Çıkış yolunu bul.', start: 'startMaze' },
-                { id: 'sudoku', name: 'Mini Sudoku', cat: 'Bulmaca', emoji: '🔢', desc: 'Sayı matrisini doldur.', start: 'startSudoku' },
-                // Kelime & Sayılar
-                { id: 'wordReverse', name: 'Kelimeyi Ters Çevir', cat: 'Kelime', emoji: '🔤', desc: 'Kelimenin tersini yaz.', start: 'startWordReverse' },
-                { id: 'anagram', name: 'Anagram Çözme', cat: 'Kelime', emoji: '🔀', desc: 'Harfleri düzenle.', start: 'startAnagram' },
-                { id: 'typing', name: 'Kelime Yazma Hızı', cat: 'Kelime', emoji: '⌨️', desc: 'Hızlıca kelime yaz.', start: 'startTyping' },
-                { id: 'emojiQuiz', name: 'Emoji Tahmin', cat: 'Kelime', emoji: '🤖', desc: 'Emojilerin anlattığını bul.', start: 'startEmojiQuiz' },
-                // Arcade
-                { id: 'snake', name: 'Yılan Oyunu', cat: 'Arcade', emoji: '🐍', desc: 'Yılanı büyüterek yemleri ye.', start: 'startSnake' },
-                { id: 'pong', name: 'Retro Pong', cat: 'Arcade', emoji: '🏓', desc: 'Klasik tenis maçı.', start: 'startPong' },
-                { id: 'timer10s', name: '10 Saniye Oyunu', cat: 'Arcade', emoji: '⏱️', desc: 'Tam 10.00 saniyede durdur.', start: 'startTimer10s' },
-                { id: 'quickSort', name: 'Sayı Sıralama', cat: 'Sayılar', emoji: '📊', desc: 'Sayıları küçükten büyüğe diz.', start: 'startQuickSort' },
-                { id: 'missingNum', name: 'Eksik Sayı', cat: 'Sayılar', emoji: '🔍', desc: 'Dizideki eksik sayıyı bul.', start: 'startMissingNum' },
-                { id: 'balance', name: 'Denge Oyunu', cat: 'Arcade', emoji: '⚖️', desc: 'Topu dengede tut.', start: 'startBalance' },
-                { id: 'dailyPuzzle', name: 'Günün Bulmacası', cat: 'Bulmaca', emoji: '📅', desc: 'Günlük zeka sorusu.', start: 'startDailyPuzzle' }
+                { id: 'memory', name: 'Hafıza Oyunu', cat: 'Hafıza', emoji: '🧠', desc: 'Kartları eşleştir.' },
+                { id: 'reaction', name: 'Tepki Testi', cat: 'Refleks', emoji: '⚡', desc: 'Hızını ölç.' },
+                { id: 'tictactoe', name: 'Tic Tac Toe', cat: 'Mantık', emoji: '❌', desc: 'Klasik XOX.' },
+                { id: 'clicker', name: 'Tıklama Hızı', cat: 'Refleks', emoji: '🖱️', desc: 'Sürede en çok tık.' },
+                { id: 'math', name: 'Hızlı Matematik', cat: 'Mantık', emoji: '➗', desc: 'İşlem yap yarış.' }
             ],
-            renderGrid(filteredList = this.list) {
-                const grid = document.getElementById('gamesGrid');
-                grid.innerHTML = filteredList.map(g => `
-                    <div class="item-card card" onclick="gamesModule.${g.start}()">
-                        <span class="badge">${g.cat}</span>
-                        <div class="item-emoji">${g.emoji}</div>
-                        <div class="item-title">${g.name}</div>
-                        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:12px;">${g.desc}</p>
-                        <button class="btn-primary" style="width:100%; min-height:40px;">▶ OYNA</button>
+            renderGrid(filtered = this.list) {
+                document.getElementById('gamesGridContainer').innerHTML = filtered.map(g => `
+                    <div class="card" style="text-align:center; cursor:pointer;" onclick="gamesModule.play('${g.id}')">
+                        <span style="font-size:2.5rem;">${g.emoji}</span>
+                        <h3>${g.name}</h3>
+                        <p style="color:var(--text-muted); font-size:0.85rem; margin:8px 0;">${g.desc}</p>
+                        <button class="btn-primary" style="padding:6px;">Oyna</button>
                     </div>
                 `).join('');
             },
             filterGames() {
                 const q = document.getElementById('gameSearchInput').value.toLowerCase();
-                const cat = document.getElementById('gameCategoryFilter').value;
-                const filtered = this.list.filter(g => {
-                    const matchQ = g.name.toLowerCase().includes(q) || g.desc.toLowerCase().includes(q);
-                    const matchCat = cat === 'all' || g.cat === cat;
-                    return matchQ && matchCat;
-                });
-                this.renderGrid(filtered);
+                const cat = document.getElementById('gameCatFilter').value;
+                this.renderGrid(this.list.filter(g => (cat === 'all' || g.cat === cat) && g.name.toLowerCase().includes(q)));
             },
-            playRandom() {
-                const rand = this.list[Math.floor(Math.random() * this.list.length)];
-                this[rand.start]();
-            },
-
-            // --- BAZI ÖRNEK OYUN İMPLEMENTASYONLARI ---
-            startMemory() {
-                ui.openModal(`
-                    <h2>🧠 Hafıza Eşleştirme</h2>
-                    <p style="color:var(--text-muted); margin-bottom:15px;">Aynı emojileri bul ve eşleştir!</p>
-                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;">
-                        ${['🍎','🍎','🚀','🚀','⚽','⚽','🐱','🐱'].sort(()=>Math.random()-0.5).map(e=>`
-                            <button class="btn-secondary" style="font-size:2rem; height:70px;" onclick="this.innerText='${e}'">❓</button>
-                        `).join('')}
-                    </div>
-                    <button class="btn-primary" style="width:100%" onclick="ui.closeModal()">Kapat / Geri Dön</button>
-                `);
-            },
-            startReaction() {
-                ui.openModal(`
-                    <h2>⚡ Tepki Hızı Testi</h2>
-                    <p style="color:var(--text-muted); margin-bottom:15px;">Yeşil ışık yandığında en hızlı şekilde tıkla!</p>
-                    <div id="reactBox" style="height:200px; background:var(--danger); border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.5rem; font-weight:bold; cursor:pointer;" onclick="this.style.background='var(--success)'; this.innerText='🎉 Tebrikler! Süper Refleks!'">
-                        🔴 BEKLE...
-                    </div>
-                    <button class="btn-secondary" style="width:100%; margin-top:15px;" onclick="ui.closeModal()">Geri Dön</button>
-                `);
-            },
-            startClicker() {
-                ui.openModal(`
-                    <h2>🖱️ 10 Saniye Tıklama Yarışı</h2>
-                    <p style="color:var(--text-muted); margin-bottom:15px;">10 saniye içinde mavi butona olabildiğince çok tıkla!</p>
-                    <div style="font-size:3rem; font-weight:bold; text-align:center; margin-bottom:15px;" id="clickCount">0</div>
-                    <button class="btn-primary" style="width:100%; height:80px; font-size:1.5rem;" onclick="document.getElementById('clickCount').innerText = parseInt(document.getElementById('clickCount').innerText) + 1">TIKLA!</button>
-                    <button class="btn-secondary" style="width:100%; margin-top:15px;" onclick="ui.closeModal()">Geri Dön</button>
-                `);
-            },
-            startTicTacToe() {
-                ui.openModal(`
-                    <h2>❌ Tic Tac Toe (XOX)</h2>
-                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0;">
-                        ${Array(9).fill(0).map(()=>`<button class="btn-secondary" style="height:70px; font-size:2rem;" onclick="this.innerText='X'">-</button>`).join('')}
-                    </div>
-                    <button class="btn-primary" style="width:100%" onclick="ui.closeModal()">Geri Dön</button>
-                `);
-            },
-            startMath() {
-                ui.openModal(`
-                    <h2>➗ Hızlı Matematik</h2>
-                    <p style="font-size:2rem; text-align:center; margin:20px 0; font-weight:bold;">14 + 28 = ?</p>
-                    <input type="number" id="mathAns" placeholder="Cevabınızı girin">
-                    <button class="btn-primary" style="width:100%" onclick="if(document.getElementById('mathAns').value=='42') alert('Doğru!'); else alert('Yanlış!');">Cevapla</button>
-                    <button class="btn-secondary" style="width:100%; margin-top:10px;" onclick="ui.closeModal()">Geri Dön</button>
-                `);
-            },
-            // Diğer oyunlar için de standart modal/oyun döngüleri
-            startSimon() { alert('Simon Says oyunu başlatıldı!'); },
-            startSequence() { alert('Sayı Dizisi oyunu başlatıldı!'); },
-            startPattern() { alert('Desen Tamamlama oyunu başlatıldı!'); },
-            startTarget() { alert('Hedefi Yakala oyunu başlatıldı!'); },
-            startColorGame() { alert('Renk Çatışması oyunu başlatıldı!'); },
-            startNumberGuess() { alert('Sayı Tahmini oyunu başlatıldı!'); },
-            startRps() { alert('Taş Kağıt Makas oyunu başlatıldı!'); },
-            startMaze() { alert('Labirent oyunu başlatıldı!'); },
-            startSudoku() { alert('Sudoku oyunu başlatıldı!'); },
-            startWordReverse() { alert('Kelimeyi Tersten Yaz oyunu başlatıldı!'); },
-            startAnagram() { alert('Anagram Çözme oyunu başlatıldı!'); },
-            startTyping() { alert('Kelime Yazma Hızı oyunu başlatıldı!'); },
-            startEmojiQuiz() { alert('Emoji Tahmin oyunu başlatıldı!'); },
-            startSnake() { alert('Yılan Oyunu başlatıldı!'); },
-            startPong() { alert('Pong oyunu başlatıldı!'); },
-            startTimer10s() { alert('10 Saniye Oyunu başlatıldı!'); },
-            startQuickSort() { alert('Sayı Sıralama oyunu başlatıldı!'); },
-            startMissingNum() { alert('Eksik Sayı oyunu başlatıldı!'); },
-            startBalance() { alert('Denge Oyunu başlatıldı!'); },
-            startDailyPuzzle() { alert('Günün Bulmacası yüklendi!'); }
+            playRandom() { this.play(this.list[Math.floor(Math.random()*this.list.length)].id); },
+            play(id) {
+                if(id === 'memory') ui.openModal('<h2>🧠 Hafıza Oyunu</h2><p>Kartlar yakında aktifleşecek.</p>');
+                else if(id === 'reaction') ui.openModal('<h2>⚡ Tepki Testi</h2><p>Yeşil ışıkta tıkla!</p>');
+                else ui.openModal(`<h2>🎮 Oyun: ${id}</h2><p>Oynanış alanı yükleniyor...</p>`);
+            }
         };
 
-        // --- 4. TOOLS MODULE ---
+        // 4. TOOLS MODULE
         const toolsModule = {
-            list: [
-                { id: 'calc', name: 'Hesap Makinesi', emoji: '🧮', action: 'showCalc' },
-                { id: 'stopwatch', name: 'Kronometre', emoji: '⏱️', action: 'showStopwatch' },
-                { id: 'passgen', name: 'Şifre Üretici', emoji: '🔐', action: 'showPassGen' },
-                { id: 'converter', name: 'Birim Dönüştürücü', emoji: '🔄', action: 'showConverter' }
-            ],
             renderGrid() {
-                document.getElementById('toolsGrid').innerHTML = this.list.map(t => `
-                    <div class="item-card card" onclick="toolsModule.${t.action}()">
-                        <div class="item-emoji">${t.emoji}</div>
-                        <div class="item-title">${t.name}</div>
+                document.getElementById('toolsGridContainer').innerHTML = [
+                    { name: 'Hesap Makinesi', emoji: '🧮', win: 'calculator' },
+                    { name: 'Takvim', emoji: '📅', win: 'calendar' },
+                    { name: 'Saat', emoji: '⏰', win: 'clock' },
+                    { name: 'Hava Durumu', emoji: '🌤️', win: 'weather' }
+                ].map(t => `
+                    <div class="card" style="text-align:center; cursor:pointer;" onclick="openWindow('${t.win}')">
+                        <span style="font-size:2.5rem;">${t.emoji}</span>
+                        <h3>${t.name}</h3>
                     </div>
                 `).join('');
-            },
-            showCalc() {
-                ui.openModal(`
-                    <h2>🧮 Hesap Makinesi</h2>
-                    <input type="text" id="calcScreen" readonly style="font-size:2rem; text-align:right; margin:15px 0;">
-                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
-                        ${['7','8','9','/','4','5','6','*','1','2','3','-','C','0','=','+'].map(c => `
-                            <button class="btn-secondary" style="font-size:1.5rem;" onclick="toolsModule.calcBtn('${c}')">${c}</button>
-                        `).join('')}
-                    </div>
-                `);
-            },
-            calcBtn(v) {
-                const s = document.getElementById('calcScreen');
-                if(v==='C') s.value='';
-                else if(v==='=') { try{s.value=eval(s.value)}catch(e){s.value='Hata'} }
-                else s.value+=v;
-            },
-            showStopwatch() { ui.openModal('<h2>⏱️ Kronometre</h2><div style="font-size:3rem; text-align:center; margin:20px 0;">00:00</div><button class="btn-primary" style="width:100%">Başlat / Durdur</button>'); },
-            showPassGen() { ui.openModal('<h2>🔐 Güçlü Şifre Üretici</h2><input type="text" value="X9#mP2!qW8" readonly style="text-align:center; font-size:1.5rem; margin:20px 0;"><button class="btn-primary" style="width:100%">Yeni Üret</button>'); },
-            showConverter() { ui.openModal('<h2>🔄 Birim Dönüştürücü</h2><p style="color:var(--text-muted)">Kilometre / Mil, Kilogram / Pound dönüşümleri yakında.</p>'); }
+            }
         };
 
-        // --- 5. NOTES MODULE ---
+        // 5. NOTES MODULE
         const notesModule = {
             addNote() {
-                const title = document.getElementById('noteTitle').value.trim();
-                const content = document.getElementById('noteContent').value.trim();
-                if(!title && !content) return;
+                const t = document.getElementById('noteTitleInput').value.trim();
+                const c = document.getElementById('noteContentInput').value.trim();
+                if(!t && !c) return;
                 const notes = store.get('notes', []);
-                notes.push({ id: Date.now(), title: title || 'Not', content });
+                notes.push({ id: Date.now(), title: t || 'Not', content: c });
                 store.set('notes', notes);
-                document.getElementById('noteTitle').value = '';
-                document.getElementById('noteContent').value = '';
+                document.getElementById('noteTitleInput').value = '';
+                document.getElementById('noteContentInput').value = '';
                 ui.showToast('✅ Not kaydedildi');
                 this.renderList();
             },
             deleteNote(id) {
-                let notes = store.get('notes', []);
-                notes = notes.filter(n => n.id !== id);
-                store.set('notes', notes);
-                ui.showToast('🗑️ Not silindi');
+                store.set('notes', store.get('notes', []).filter(n => n.id !== id));
                 this.renderList();
             },
             renderList() {
                 const notes = store.get('notes', []);
-                const container = document.getElementById('notesList');
-                if(notes.length === 0) { container.innerHTML = '<p style="color:var(--text-muted)">Henüz not yok.</p>'; return; }
-                container.innerHTML = notes.map(n => `
+                document.getElementById('notesGridContainer').innerHTML = notes.length === 0 ? '<p style="color:var(--text-muted)">Not bulunmuyor.</p>' : notes.map(n => `
                     <div class="card">
                         <h3>${n.title}</h3>
-                        <p style="margin:10px 0;">${n.content}</p>
-                        <button class="btn-danger" style="padding:6px 12px; font-size:0.85rem;" onclick="notesModule.deleteNote(${n.id})">Sil</button>
+                        <p style="margin:8px 0;">${n.content}</p>
+                        <button class="btn-danger" style="padding:4px 8px; font-size:0.8rem;" onclick="notesModule.deleteNote(${n.id})">Sil</button>
                     </div>
                 `).join('');
             }
         };
 
-        // --- 6. MUSIC MODULE ---
+        // 6. NEWS MODULE (GNews API)
+        const newsModule = {
+            async fetchNews() {
+                const key = store.get('gnewsKey', '');
+                const cat = document.getElementById('newsCategorySelect').value;
+                if(!key) { document.getElementById('newsError').innerText = 'GNews API anahtarı Ayarlar bölümünden girilmelidir.'; document.getElementById('newsError').style.display='block'; return; }
+                document.getElementById('newsLoading').style.display = 'block';
+                document.getElementById('newsError').style.display = 'none';
+                try {
+                    const res = await fetch(`https://gnews.io/api/v4/top-headlines?category=${cat}&lang=tr&apikey=${key}`);
+                    const data = await res.json();
+                    if(data.errors) throw new Error(data.errors[0]);
+                    document.getElementById('newsContainer').innerHTML = data.articles.map(a => `
+                        <div class="card">
+                            <img src="${a.image}" style="width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px;" onerror="this.style.display='none'">
+                            <h3>${a.title}</h3>
+                            <p style="font-size:0.85rem; color:var(--text-muted); margin:6px 0;">${a.source.name} | ${new Date(a.publishedAt).toLocaleDateString()}</p>
+                            <a href="${a.url}" target="_blank" class="btn-secondary" style="display:inline-block; text-decoration:none; text-align:center; margin-top:8px;">Habere Git</a>
+                        </div>
+                    `).join('');
+                } catch(e) {
+                    document.getElementById('newsError').innerText = `Hata: ${e.message}`;
+                    document.getElementById('newsError').style.display = 'block';
+                } finally { document.getElementById('newsLoading').style.display = 'none'; }
+            }
+        };
+
+        // 7. MUSIC MODULE
         const musicModule = {
-            playlist: [],
-            currentIndex: 0,
-            isPlaying: false,
-            audioElement: new Audio(),
-            handleFiles(files) {
-                for(let file of files) {
-                    const url = URL.createObjectURL(file);
-                    this.playlist.push({ name: file.name, url });
-                }
-                this.renderPlaylist();
+            list: [], current: 0, audio: new Audio(), isPlaying: false,
+            addFiles(files) {
+                for(let f of files) this.list.push({ name: f.name, url: URL.createObjectURL(f) });
+                this.render();
                 ui.showToast(`🎵 ${files.length} parça eklendi.`);
-                if(this.playlist.length === 1) this.loadSong(0);
             },
-            renderPlaylist() {
-                const container = document.getElementById('playlistContainer');
-                container.innerHTML = this.playlist.map((s, idx) => `
-                    <div style="padding:10px; background:var(--bg-color); border-radius:8px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="musicModule.loadSong(${idx}); musicModule.togglePlay();">
+            render() {
+                document.getElementById('playlistList').innerHTML = this.list.map((s,i)=>`
+                    <div style="padding:8px; background:var(--bg-color); border-radius:8px; display:flex; justify-content:space-between; cursor:pointer;" onclick="musicModule.play(${i})">
                         <span>🎵 ${s.name}</span>
-                        <span style="font-size:0.8rem; color:var(--primary);">Oynat</span>
                     </div>
                 `).join('');
             },
-            loadSong(index) {
-                if(index < 0 || index >= this.playlist.length) return;
-                this.currentIndex = index;
-                const song = this.playlist[index];
-                this.audioElement.src = song.url;
-                document.getElementById('currentSongTitle').innerText = song.name;
+            play(i) {
+                this.current = i;
+                this.audio.src = this.list[i].url;
+                this.audio.play();
+                this.isPlaying = true;
+                document.getElementById('currentSongTitle').innerText = this.list[i].name;
+                document.getElementById('musicPlayBtn').innerText = '⏸';
             },
             togglePlay() {
-                if(this.playlist.length === 0) { ui.showToast('Önce MP3 dosyası ekleyin!'); return; }
-                if(this.isPlaying) {
-                    this.audioElement.pause();
-                    this.isPlaying = false;
-                    document.getElementById('playPauseBtn').innerText = '▶';
-                } else {
-                    this.audioElement.play();
-                    this.isPlaying = true;
-                    document.getElementById('playPauseBtn').innerText = '⏸';
-                }
+                if(this.list.length === 0) return;
+                if(this.isPlaying) { this.audio.pause(); this.isPlaying=false; document.getElementById('musicPlayBtn').innerText='▶'; }
+                else { this.audio.play(); this.isPlaying=true; document.getElementById('musicPlayBtn').innerText='⏸'; }
             },
-            nextSong() {
-                if(this.playlist.length === 0) return;
-                let next = (this.currentIndex + 1) % this.playlist.length;
-                this.loadSong(next);
-                if(this.isPlaying) this.audioElement.play();
-            },
-            prevSong() {
-                if(this.playlist.length === 0) return;
-                let prev = (this.currentIndex - 1 + this.playlist.length) % this.playlist.length;
-                this.loadSong(prev);
-                if(this.isPlaying) this.audioElement.play();
-            }
+            next() { if(this.list.length) this.play((this.current + 1) % this.list.length); },
+            prev() { if(this.list.length) this.play((this.current - 1 + this.list.length) % this.list.length); }
         };
 
-        // --- 7. YOUTUBE MODULE ---
+        // 8. YOUTUBE MODULE
         const youtubeModule = {
-            loadVideo() {
+            load() {
                 const url = document.getElementById('ytUrlInput').value.trim();
-                const videoId = this.extractId(url);
-                if(!videoId) { ui.showToast('❌ Geçerli bir YouTube linki girin!', 'danger'); return; }
-                this.playPreset(videoId);
-            },
-            extractId(url) {
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                const match = url.match(regExp);
-                return (match && match[2].length === 11) ? match[2] : null;
-            },
-            playPreset(id) {
-                const container = document.getElementById('ytPlayerContainer');
-                container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                ui.showToast('📺 Video yüklendi');
-            },
-            showGoogleAuthInfo() {
-                ui.openModal(`
-                    <h2>🔐 Google Hesabı & OAuth 2.0 Bilgilendirmesi</h2>
-                    <p style="margin: 15px 0; color:var(--text-muted); line-height:1.6;">
-                        Statik web uygulamalarında (GitHub Pages vb.) tam Google OAuth 2.0 entegrasyonu ve API anahtar güvenliği için sunucu tarafı (backend) doğrulama gerekir. 
-                        Bu sürümde şifreleriniz asla toplanmaz ve istemci tarafında güvenli bağlantı prosedürleri izlenir.
-                    </p>
-                    <button class="btn-primary" style="width:100%" onclick="ui.closeModal()">Anladım</button>
-                `);
+                const id = url.includes('v=') ? url.split('v=')[1].substring(0,11) : url;
+                document.getElementById('ytPlayerBox').innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`;
             }
         };
 
-        // --- 8. SETTINGS MODULE ---
+        // 9. GOOGLE MODULE
+        const googleModule = {
+            search() {
+                const q = document.getElementById('googleQueryInput').value.trim();
+                if(!q) return;
+                document.getElementById('googleResultText').innerText = `"${q}" için güvenli arama sonuçları simüle edilmiştir.`;
+                document.getElementById('googleExternalLink').href = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+                document.getElementById('googleResultsCard').style.display = 'block';
+            }
+        };
+
+        // 10. APP STORE MODULE
+        function renderStore(installed) {
+            document.getElementById('storeAppsGrid').innerHTML = appRegistry.map(a => `
+                <div class="card" style="text-align:center;">
+                    <span style="font-size:2rem;">${a.emoji}</span>
+                    <h4>${a.name}</h4>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0;">${a.cat}</p>
+                    ${installed.includes(a.id) ? 
+                        `<button class="btn-secondary" style="padding:4px;" onclick="uninstallApp('${a.id}')">Kaldır</button>` : 
+                        `<button class="btn-primary" style="padding:4px;" onclick="installApp('${a.id}')">Yükle</button>`}
+                </div>
+            `).join('');
+        }
+        function installApp(id) {
+            let inst = store.get('installed_apps', appRegistry.map(a=>a.id));
+            if(!inst.includes(id)) inst.push(id);
+            store.set('installed_apps', inst);
+            renderDesktopAndStartMenu();
+            ui.showToast('✅ Uygulama yüklendi');
+        }
+        function uninstallApp(id) {
+            let inst = store.get('installed_apps', appRegistry.map(a=>a.id)).filter(i => i !== id);
+            store.set('installed_apps', inst);
+            renderDesktopAndStartMenu();
+            ui.showToast('🗑️ Uygulama kaldırıldı');
+        }
+
+        // 11. SETTINGS MODULE
         const settingsModule = {
-            saveFootballKey() {
-                const key = document.getElementById('footballKey').value.trim();
-                store.set('footballKey', key);
-                ui.showToast('✅ Spor API Anahtarı kaydedildi');
-            },
-            clearData() {
-                if(confirm('Tüm yerel veriler sıfırlanacak. Emin misin?')) {
-                    localStorage.clear();
-                    window.location.reload();
-                }
-            }
+            saveFootball() { store.set('footballKey', document.getElementById('footballKeyInput').value.trim()); ui.showToast('✅ Spor Anahtarı kaydedildi'); },
+            saveGnews() { store.set('gnewsKey', document.getElementById('gnewsKeyInput').value.trim()); ui.showToast('✅ GNews Anahtarı kaydedildi'); },
+            clearData() { if(confirm('Tüm veriler silinecek?')) { localStorage.clear(); location.reload(); } }
         };
 
-        // BAŞLAT
+        // Diğer yardımcılar
+        function calcBtn(v) {
+            const s = document.getElementById('calcScreen');
+            if(v==='C') s.value='';
+            else if(v==='=') { try{s.value=eval(s.value)}catch(e){s.value='Hata'} }
+            else s.value+=v;
+        }
+        function loadPhoto(inp) {
+            if(inp.files && inp.files[0]) {
+                const r = new FileReader();
+                r.onload = e => document.getElementById('photoContainer').innerHTML = `<img src="${e.target.result}" style="max-width:100%; max-height:250px; border-radius:8px;">`;
+                r.readAsDataURL(inp.files[0]);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
